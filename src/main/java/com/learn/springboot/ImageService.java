@@ -51,6 +51,7 @@ public class ImageService {
     public void deleteImage(String fileName) throws IOException {
         final Image byName = repository.findByName(fileName);
         Files.deleteIfExists(Paths.get(UPLOAD_ROOT, fileName));
+        repository.delete(byName);
     }
 
     @Bean
