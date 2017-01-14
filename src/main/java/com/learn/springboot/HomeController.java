@@ -3,11 +3,14 @@ package com.learn.springboot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,13 +32,19 @@ public class HomeController {
         this.imageService = imageService;
     }
 
+    @RequestMapping("/")
+    public String index(Model model, Pageable pageable){
+        Page<Image> page = imageService.findAll(pageable);
+        model.addAttribute("page",page);
+        return "index";
+    }
 
-    @RequestMapping(method = RequestMethod.GET,value = BASE_PATH+"/"+FILENAME+"/"+"raw")
+    @RequestMapping(method = RequestMethod.GET, value = BASE_PATH + "/" + FILENAME + "/" + "raw")
     @ResponseBody
-    public ResponseEntity<?> findRawImage(@PathVariable String fileName) {
+    public ResponseEntity<?> findRawImage(@PathVariable String filename) {
 
         try {
-            Resource file = imageService.findOneImage(fileName);
+            Resource file = imageService.findOneImage(filename);
             return ResponseEntity
                     .ok()
                     .contentType(MediaType.IMAGE_JPEG)
@@ -44,32 +53,32 @@ public class HomeController {
         } catch (IOException e) {
             return ResponseEntity
                     .badRequest()
-                    .body("Not found "+fileName+e.getMessage());
+                    .body("Not found " + filename + e.getMessage());
         }
 
     }
 
 
-    @RequestMapping(method = RequestMethod.POST,value=BASE_PATH)
+    @RequestMapping(method = RequestMethod.POST, value = BASE_PATH)
     @ResponseBody
-    public ResponseEntity createFile(@RequestParam("file")MultipartFile file, HttpServletRequest httpRequest){
+    public ResponseEntity createFile(@RequestParam("file") MultipartFile file, HttpServletRequest httpRequest) {
         try {
             imageService.createImage(file);
-            URI uri = new URI(httpRequest.getRequestURL().toString()+"/").resolve(file.getOriginalFilename()+"/raw");
-            return ResponseEntity.created(uri).body("successfully uploaded "+file.getOriginalFilename());
+            URI uri = new URI(httpRequest.getRequestURL().toString() + "/").resolve(file.getOriginalFilename() + "/raw");
+            return ResponseEntity.created(uri).body("successfully uploaded " + file.getOriginalFilename());
         } catch (IOException | URISyntaxException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Can not upload "+file.getOriginalFilename());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Can not upload " + file.getOriginalFilename());
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE,value = BASE_PATH+"/"+FILENAME )
+    @RequestMapping(method = RequestMethod.DELETE, value = BASE_PATH + "/" + FILENAME)
     @ResponseBody
-    public ResponseEntity deleteFile(@PathVariable String fileName){
+    public ResponseEntity deleteFile(@PathVariable String filename) {
         try {
-            imageService.deleteImage(fileName);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("successfully deleted "+fileName);
+            imageService.deleteImage(filename);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("successfully deleted " + filename);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete "+fileName);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete " + filename);
         }
     }
 

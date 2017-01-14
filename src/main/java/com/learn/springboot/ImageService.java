@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
@@ -29,6 +31,10 @@ public class ImageService {
     public ImageService(ImageRepository repository, ResourceLoader resourceLoader) {
         this.repository = repository;
         this.resourceLoader = resourceLoader;
+    }
+
+    public Page<Image> findAll(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     public Resource findOneImage(String fileName) {
