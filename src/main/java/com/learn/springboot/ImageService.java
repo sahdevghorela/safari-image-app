@@ -2,6 +2,11 @@ package com.learn.springboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.actuate.metrics.CounterService;
+import org.springframework.boot.actuate.metrics.GaugeService;
+import org.springframework.boot.actuate.metrics.Metric;
+import org.springframework.boot.actuate.metrics.repository.InMemoryMetricRepository;
+import org.springframework.boot.actuate.metrics.writer.Delta;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
@@ -27,14 +32,24 @@ public class ImageService {
 
     private final ImageRepository repository;
     private final ResourceLoader resourceLoader;
+    private final CounterService counterService;
+    private final GaugeService gaugeService;
+    private InMemoryMetricRepository inMemoryMetricRepository;
 
     @Autowired
-    public ImageService(ImageRepository repository, ResourceLoader resourceLoader) {
+    public ImageService(ImageRepository repository, ResourceLoader resourceLoader, CounterService counterService, GaugeService gaugeService, InMemoryMetricRepository inMemoryMetricRepository) {
         this.repository = repository;
         this.resourceLoader = resourceLoader;
+        this.counterService = counterService;
+        this.gaugeService = gaugeService;
+        this.inMemoryMetricRepository = inMemoryMetricRepository;
+
+        this.counterService.reset("files.uploaded");
+        this.gaugeService.submit("files.uploaded.lastBytes", 0);
+        inMemoryMetricRepository.set(new Metric<Number>("files.uploaded.lastBytes",0L));
     }
 
-    public Page<Image> findAll(Pageable pageable){
+    public Page<Image> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
@@ -46,6 +61,10 @@ public class ImageService {
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
             repository.save(new Image(file.getOriginalFilename()));
+
+            counterService.increment("files.uploaded");
+            gaugeService.submit("files.uploaded.lastBytes", file.getSize());
+            inMemoryMetricRepository.increment(new Delta<Number>("files.uploaded.totalBytes",file.getSize()));
         }
     }
 
@@ -53,10 +72,12 @@ public class ImageService {
         final Image byName = repository.findByName(fileName);
         Files.deleteIfExists(Paths.get(UPLOAD_ROOT, fileName));
         repository.delete(byName);
+
+        counterService.decrement("files.uploaded");
     }
 
     @Bean
-    CommandLineRunner setUp(ImageRepository repository, ConditionEvaluationReport conditionEvaluationReport) throws IOException {
+    CommandLineRunner setUp(ImageRepository repository) throws IOException {
         return args -> {
             FileSystemUtils.deleteRecursively(new File(UPLOAD_ROOT));
 
@@ -71,11 +92,6 @@ public class ImageService {
             FileCopyUtils.copy("Test File3", new FileWriter(UPLOAD_ROOT + "/test3"));
             repository.save(new Image("test3"));
 
-            conditionEvaluationReport.getConditionAndOutcomesBySource()
-                    .entrySet()
-                    .stream()
-                    .filter(entry -> entry.getValue().isFullMatch())
-                    .forEach(entry -> System    .out.println(entry.getKey() + "=> isMatch?"+entry.getValue().isFullMatch()));
         };
 
     }
