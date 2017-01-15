@@ -2,6 +2,7 @@ package com.learn.springboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -55,7 +56,7 @@ public class ImageService {
     }
 
     @Bean
-    CommandLineRunner setUp(ImageRepository repository) throws IOException {
+    CommandLineRunner setUp(ImageRepository repository, ConditionEvaluationReport conditionEvaluationReport) throws IOException {
         return args -> {
             FileSystemUtils.deleteRecursively(new File(UPLOAD_ROOT));
 
@@ -69,6 +70,12 @@ public class ImageService {
 
             FileCopyUtils.copy("Test File3", new FileWriter(UPLOAD_ROOT + "/test3"));
             repository.save(new Image("test3"));
+
+            conditionEvaluationReport.getConditionAndOutcomesBySource()
+                    .entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue().isFullMatch())
+                    .forEach(entry -> System    .out.println(entry.getKey() + "=> isMatch?"+entry.getValue().isFullMatch()));
         };
 
     }
