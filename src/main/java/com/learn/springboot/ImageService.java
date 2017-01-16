@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
@@ -36,13 +37,21 @@ public class ImageService {
     private final GaugeService gaugeService;
     private InMemoryMetricRepository inMemoryMetricRepository;
 
+    /*
+    -> when we receive http requests from client to create or delete images, we want all our websocket subscribers to notified of
+    these changes(Here we have Server to Client communication through websockets not vice versa). For this we need SimpMessagingTemplate.
+     */
+    private final SimpMessagingTemplate messagingTemplate;
+
     @Autowired
-    public ImageService(ImageRepository repository, ResourceLoader resourceLoader, CounterService counterService, GaugeService gaugeService, InMemoryMetricRepository inMemoryMetricRepository) {
+    public ImageService(ImageRepository repository, ResourceLoader resourceLoader, CounterService counterService, GaugeService gaugeService
+            , InMemoryMetricRepository inMemoryMetricRepository, SimpMessagingTemplate messagingTemplate) {
         this.repository = repository;
         this.resourceLoader = resourceLoader;
         this.counterService = counterService;
         this.gaugeService = gaugeService;
         this.inMemoryMetricRepository = inMemoryMetricRepository;
+        this.messagingTemplate = messagingTemplate;
 
         this.counterService.reset("files.uploaded");
         this.gaugeService.submit("files.uploaded.lastBytes", 0);
@@ -65,6 +74,15 @@ public class ImageService {
             counterService.increment("files.uploaded");
             gaugeService.submit("files.uploaded.lastBytes", file.getSize());
             inMemoryMetricRepository.increment(new Delta<Number>("files.uploaded.totalBytes",file.getSize()));
+
+            /*
+            ->The string is the event published when new image is uploaded. So this is the process of defining events.
+            ->You can choose convertAndSendToUser if you want to send to currently authenticated user in current session with
+            spring security.
+            ->Spring has converter so you can send any data that you want.
+             */
+            messagingTemplate.convertAndSend("/topic/newImage",file.getOriginalFilename());
+
         }
     }
 
@@ -74,6 +92,8 @@ public class ImageService {
         repository.delete(byName);
 
         counterService.decrement("files.uploaded");
+
+        messagingTemplate.convertAndSend("/topic/deleteImage",fileName);
     }
 
     @Bean
