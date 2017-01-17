@@ -1,5 +1,7 @@
 package com.learn.springboot;
 
+import com.learn.springboot.security.User;
+import com.learn.springboot.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.actuate.metrics.CounterService;
@@ -97,20 +99,23 @@ public class ImageService {
     }
 
     @Bean
-    CommandLineRunner setUp(ImageRepository repository) throws IOException {
+    CommandLineRunner setUp(ImageRepository imageRepository, UserRepository userRepository) throws IOException {
         return args -> {
             FileSystemUtils.deleteRecursively(new File(UPLOAD_ROOT));
 
             Files.createDirectory(Paths.get(UPLOAD_ROOT));
 
+            User user1 = userRepository.save(new User("user1","pass","ROLE_ADMIN","ROLE_USER"));
+            User user2 = userRepository.save(new User("user2","pass","ROLE_USER"));
+
             FileCopyUtils.copy("Test File", new FileWriter(UPLOAD_ROOT + "/test.txt"));
-            repository.save(new Image("test"));
+            imageRepository.save(new Image("test"));
 
             FileCopyUtils.copy("Test File2", new FileWriter(UPLOAD_ROOT + "/test2"));
-            repository.save(new Image("test2"));
+            imageRepository.save(new Image("test2"));
 
             FileCopyUtils.copy("Test File3", new FileWriter(UPLOAD_ROOT + "/test3"));
-            repository.save(new Image("test3"));
+            imageRepository.save(new Image("test3"));
 
         };
 
