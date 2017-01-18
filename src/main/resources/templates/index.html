@@ -26,13 +26,14 @@
 
         <thead>
         <tr>
-            <th>Id</th><th>Name</th><th>Image</th><th></th>
+            <th>Id</th><th>Name</th><th>Owner</th><th>Image</th><th></th>
         </tr>
         </thead>
         <tbody>
             <tr th:each="image: ${page.content}">
                 <td th:text="${image.id}"/>
                 <td th:text="${image.name}"/>
+                <td th:text="${image.owner.username}"/>
                 <td><a th:href="@{'/images/' + ${image.name} + '/raw'}"><img  th:src="@{'/images/' + ${image.name} + '/raw'}" class="thumbnail"/></a></td>
                 <td><form th:method="delete" th:action="@{'/images/'+${image.name}}">
                         <input type="submit" value="Delete"/>
@@ -47,7 +48,7 @@
         <li th:if="${next}"><a th:href="@{/(size=${next.pageSize},page=${next.pageNumber})}">Next</a></li>
     </ul>
 
-    <form method="post" enctype="multipart/form-data" action="/images" >
+    <form method="post" enctype="multipart/form-data" th:action="@{/images}" >
         <p> <input type="file" name="file"/></p>
         <p><input type="submit" value="Upload"/></p>
     </form>

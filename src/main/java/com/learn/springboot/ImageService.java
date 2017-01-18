@@ -16,6 +16,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
@@ -44,16 +45,18 @@ public class ImageService {
     these changes(Here we have Server to Client communication through websockets not vice versa). For this we need SimpMessagingTemplate.
      */
     private final SimpMessagingTemplate messagingTemplate;
+    private UserRepository userRepository;
 
     @Autowired
-    public ImageService(ImageRepository repository, ResourceLoader resourceLoader, CounterService counterService, GaugeService gaugeService
-            , InMemoryMetricRepository inMemoryMetricRepository, SimpMessagingTemplate messagingTemplate) {
-        this.repository = repository;
+    public ImageService(ImageRepository imageRepository, ResourceLoader resourceLoader, CounterService counterService, GaugeService gaugeService
+            , InMemoryMetricRepository inMemoryMetricRepository, SimpMessagingTemplate messagingTemplate, UserRepository userRepository) {
+        this.repository = imageRepository;
         this.resourceLoader = resourceLoader;
         this.counterService = counterService;
         this.gaugeService = gaugeService;
         this.inMemoryMetricRepository = inMemoryMetricRepository;
         this.messagingTemplate = messagingTemplate;
+        this.userRepository = userRepository;
 
         this.counterService.reset("files.uploaded");
         this.gaugeService.submit("files.uploaded.lastBytes", 0);
@@ -71,7 +74,9 @@ public class ImageService {
     public void createImage(MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
-            repository.save(new Image(file.getOriginalFilename()));
+            repository.save(new Image(
+                    file.getOriginalFilename(),userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+            ));
 
             counterService.increment("files.uploaded");
             gaugeService.submit("files.uploaded.lastBytes", file.getSize());
@@ -108,14 +113,14 @@ public class ImageService {
             User user1 = userRepository.save(new User("user1","pass","ROLE_ADMIN","ROLE_USER"));
             User user2 = userRepository.save(new User("user2","pass","ROLE_USER"));
 
-            FileCopyUtils.copy("Test File", new FileWriter(UPLOAD_ROOT + "/test.txt"));
-            imageRepository.save(new Image("test"));
+            FileCopyUtils.copy("Test File", new FileWriter(UPLOAD_ROOT + "/test"));
+            imageRepository.save(new Image("test",user1));
 
             FileCopyUtils.copy("Test File2", new FileWriter(UPLOAD_ROOT + "/test2"));
-            imageRepository.save(new Image("test2"));
+            imageRepository.save(new Image("test2",user1));
 
             FileCopyUtils.copy("Test File3", new FileWriter(UPLOAD_ROOT + "/test3"));
-            imageRepository.save(new Image("test3"));
+            imageRepository.save(new Image("test3",user2));
 
         };
 
