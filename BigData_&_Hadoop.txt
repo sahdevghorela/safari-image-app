@@ -1,0 +1,565 @@
+========================Introduction To Big Data=============================================
+->The traditional SQL database evolved from file systems. It assumes that all data can be expressed in scalar values in the columns of the rows of a table, 
+just as file systems used fields in records of files. But the truth is that not all data fits into a traditional SQL model. 
+->The storage models have changed. Columnar databases have no rows, but keep tables as columns which can be assembled into rows if needed.
+The MapReduce Model and Key-Value Stores do not have tables at all.
+->Graph Databases do not have a table concept at all! They model pure relationships, expressed as a graph structure. SQL assumes that we know 
+the relationships in the data. Graph databases discover the relationships. They are used for social network analysis, patterns in various kinds of flows. 
+Think about a SQL query to find the minimal set of “the cool kids” in a social network whose adoption of a product makes it into the next trend. 
+->Textbases or document databases have no concept of structured data. Instead of syntax, they get meaning from semantics. For example, Nexis, Lexis 
+and Westlaw are used by researchers and lawyers to locate documents.
+One of Dr. Codd’s 12 rules for RDBMS systems was that there must be a linear language to control and access the database. But Geographical Data (GIS)
+deal with maps, so they are 2 or 3 dimensional by nature. Their query languages are often graphic tools. For example, you can draw a polygon on a map 
+and then ask how many people live inside it. 
+->The four v's of Big Data: Volume(size of data), Velocity(Speed ), Variety(of sources of data), and Veracity(Accuracy of Data).
+-> In NoSQL, availability is more important than consistency. BASE stands for basically available, in a soft state, and eventual consistency. 
+An example of BASE is how updates are handled to our domain system.
+-> One of problem with Big data is that where bad data coming in fast leads to issues.
+-> Columnar databases -  In a columnar database, each column is stored in its own structure. Rows are assembled on the fly from columns.
+The situations where to use a columnar database as scenarios where extreme compactness are needed. Example of columnar db is Sybase IQ.
+-> Graph Databases- Graph databases model relationships not data. RDBMS is based on logic and set theory, so graph database is based on 
+graph theory.Eg. Given Amir khan, link him someone else in the movie industry. We will direct link and chain of links as result.
+Graph databases are not network database. We are not trying to do arithmatic or statistic, We want to see relationships in data.
+Many companies have data that are of little use because they are unstructured and they do not know the relationship between them.
+One of the best known graph db is  Neo4j, which is a service implemented in Java
+
+Introduction to Big Data:
+->Big Data Sources: Transactions (Business systems), Social media(FB, twitter,blogs), Unstructured data(photots,videos, texts), Sensor data (
+Senosrs in cars)
+-> Big Data characteristics: Volume,Variety,Velocity and Veracity.
+   Big Data Workflow: Acquire -> Store -> Analyze -> Visualize -> Manage(eg. security of data) -> Share -> Integrate
+->Problems in captializing on Big Data:
+	1. Data is unstructured
+	2. Data arrives very quickly. May have narrow usefullness window. For.eg. detecting fraud transactiona and interven quickly.
+	3. So much data but not sure what to analyze.
+	4. Integrate big data with conventional systems.
+	5. Lack of knowledgeable people in company and company politics.
+-> Solution to some of Big data problems: 
+	1. New processing approaches: e.g MapReduce algorithems and other algorithems
+	2. New Data technologies: Hadoop and its successors, NoSql stores, Stream processing
+-> The challenges of RDBMS:
+	1. Handling of large amount of dta
+	2. Decreasing performance with increasing amount of data or Out of reach at end.
+	2. Increasing cost exponantially with increasing data.
+	
+-> MapReduce and Hadoop:
+	-> Processing large volumes of data with many machines
+		1. Load a large set of records onto a set of machines(Each machine gets a subset of data to procss)- Key-Value pair (key doesn't matter)
+		2. Extract or Transformt something of interest from each record.In hadoop this step of algo is called "Map" step.
+		3. Shuffle intermediate results between the machines. This step is supported inbuilt by the Hadoop framework.
+		4. Aggregate the intermediate results. This is called Reduce step. 
+		5. Store end result.
+Above algo may not seem good but if we have many machine we can achieve great deal of efficiency.
+-> MapReduce algorithem would profit a lot from Brute Force approach in which if we have many machines on which to execute MapReduce, we can really improve
+the speed of processing as we can distribute our effort to multiple worker nodes.
+-> Map Step: Input split into pieces, Worker nodes process individual pieces in parallel and then each worker node stores its result in its local file 
+system where a reducer is able to access it.
+-> Reduce Step: Data is aggregated and like map step this is also in parallel.
+-> From programming perspective we can see the "separation of work" here. Providing implementaion of Map and Reduce is responsibility of programmer 
+and Hadoop framework will provide all other facilities listed below:
+ . Deals with fault tolerance 
+ . Assign worker nodes to map and reduce tasks.
+ . Moves processes to data
+ . Shuffles and sorts intermediate results.
+ . Deals with errors.
+ 
+-> Introduction to Hadoop:
+	. Open source framework for processing large amount of data.
+	. Designed to work on clusters of cheap and unreliable machines. So its highly fault tolerant.
+	. Inspired by Google technologies, implemented in java.
+	. Designed to scale, easy to improve performance by increasing the cluster size.
+	. Useful as a cost effective solution.
+	. Normally what you will see is  that Hadoop is combined with some existing systems and other NoSQL stores. 
+-> Two key aspects of Hadoop:
+	. MapReduce framework
+	. Hadoop distributed file system = HDFS
+		- Where Hadoop stores all the data.
+		- A file system that spans all the nodes in a hadoop cluster.
+		- It links together the file systems on many local nodes to make them into one big file system.
+		- Idea isto store the data in redundant fashion so that if some nodes fail we still have data to do the processing.
+		
+-> HDFS: 
+	Requirements: 1. Data should be stored on multiple machines.
+				  2. We should be able to store any kind of data eg. Text, images.
+	Problems: 	  1. These machine can fail.
+				  2. Data shoul not be lost
+	Solution:	  1. Distribued and reliable storage - HDFS.
+			: Hadoop breaks large file into several blocks and send them on different nodes. It has 3 replica of each block on different nodes.
+			  There is one master node called name node which has info about which node contains which block. Each block is typically 64 or
+			  128MB. HDFS resides on top of native file system of these nodes. HDFS follow GFS google file system. 
+HDFS sweet spots:
+	. Smaller number of large files. typically > 100 MB
+	. Ideal applications read the data from the beginning to the end. No random access of piece of data. It helps hadoop to minimize the cost of "seek".
+	. Files are typically not updated. If you need to create something new, typically new files are created. 
+	. Default replication is 3 which you can customize. 
+
+Interacting with HDFS: Ways:
+	. HDFS shell. Terminal which allows commands to ineract. 
+		command form: hadoop [--config configdir] [command] [Generic options] [command options]
+	. Web user interface. Open source and properietry solutions.
+	. Java API
+	. REST
+File movement example:
+	. get command. copy file to the local file system. hadoop fs -get /user/hadoop/file localFile
+	. put comand. Copy file to HDFS. hadoop fs -put localFile /user/hadoop/file
+	. Related commands. copyFromLocal and copyToLocal.
+	. HDFS shell provides all usual file sytem cammands like cat,cp, ls, mkdir, mv, rm etc. 
+	
+-> Hadoop Infrastructure: 
+	-NameNode:
+		. Manage the metadata for the HDFS.
+		. Must remain accessible. Should install on more reilable machine than data node. 
+		. Metadata is held on RAM. Make sure it has lot RAM.
+	-Secondary NameNode
+		. It is not backup of NameNode!!
+		. It handles some housekeeping tasks. 
+	-DataNodes
+		. Stores data in cluster. 
+		. Map and Reduce jobs are run on data nodes. 
+		. One key thing in which hadoop differes from RDBS is that it does not send data to the programs instead programs(MapReduce) are sent 
+			to the data nodes and then processing happens on the node. 
+	-Hadoop Management tools
+		. Graphically manage the cluster, jobs, HDFS.
+		. Admin tasks. Start/stop server. Add/Remove server. Server status details (logs).
+		
+YARN: Yet Another Resource Negotiator is a software part of the modern hadoop infrastructure. 
+	. Hadoop MapReduce V1 issues
+		- Multi Tenancy: Very simple approach to assign task to nodes.
+		- Difficult to scale beyond 4000 nodes. 
+	. Yarn is internal reorganization in Hadoop v2 and its compatible with V1. 
+	. YARN is built on top of HDFS. It provies a common platform on which we have various systems and tools. 
+	  For eg. we have Pig and Hive which are programming language to write MapReduce tasks. HBase is real time database on top of Hadoop. 
+	  Storm is system for processing the streams of data. Solr is search system. Spark allows to processing big data keeping as many data in memory 
+	  achieving speed. Cascading and Scalding are libraries for very productive programming for hadoop jobs. 
+	. So YARN is a common platform for resource management for applicaitons for scalability and Yarn is typically hidden from end users. 
+	
+	
+-> Programming Hadoop: 
+	Characterstics of hadoop programing: 
+		.No updates in place. The result are stored in new File.
+		.When comes to programming, you have many options and Your option will vary by two factors:
+			Full control Vs Productivity.
+			Developer Background.
+	Java: 
+		Low level API. 
+		Full control over all aspects of MapReduce. 
+		Cumbersome programming model. 
+		Requires many lines of code. 
+		A good productive option with java is Cascading library for assembling data flow programs that get translated to 
+			MapReduce.
+	Hadoop Streaming:
+		For languages like python or Ruby.
+		Simpler model than java but less efficient. 
+	Hive:
+		A sql like language. Great starting for data professionals. 
+		Signinficantly more productive than java.
+		Not as rich as modern SQL but can be extended through user defined functions.
+		One has to write complete Hive statement which makes it difficult to write little by little.
+	PIG:
+		It address the issue with HIVE. Its a data flow language. 
+		BUild your program with small steps.
+		Much more productive than java. 
+		Designed to handle simple flows. No control structures or iterations.
+	Scalding:
+		A library built on the top of Scala which is modern programming language built on java. 
+		Elegent model. Program looks like manipulating in memory data structures, but get translated to MapReduce.
+		Very short programs. 
+		Full programming environment like CI, TDD and IDE support. 
+	
+-> Hive: 
+	. Hive is data warehousing infrastructure based on Hadoop.
+	. Hive's main advantage is massive scale out and fault tolerance. Massive scale out means that we are achieving greater performance by 
+		running processes not on bigger machines but spreading the processing on number of machines.
+	. It was originated at Facebook in 2007, now its apache project.
+	. We work with Hive by using HiveQL. HiveQL is query language based on SQL. 
+	. The way we work with Hive is first by defining tables. These tables are defined on the top of HDFS files. The important thing here is that
+		these tables are not created really but only mapping is defined between files in HDFS and tables.
+	. When we run our queries in HiveQL these queries are transformed into MapReduce tasks. One query can be reduced into several MapReduce tasks.
+	. Good candidate when transitioning from RDBS to Hadoop because HiveQL is similar to HQL.
+	. Typical Hive applicaitons:
+		- When the data of application comes in various formats in HDFS and then we apply SQL like tools to create useful information out of them. 
+		- For eg. Log processing, Text processing, Indexing, ETL, Business Analytics etc.
+	. Its all files. The table we define actually define mapping over the data that exists in HDFS. So when you create the table there is no separate
+		storage allocated.
+	. One nice feature of Hive is that tables can be partitioned into several files for scalability.
+	. Typical Hive workflow:
+		- We first collect our data and dump it to HDFS.
+		- Create mapping between Hive tables and this data.
+		- Run queries.
+		- Store result again to the HDFS.
+		- The if we need this data we can move this data to our regular file system.
+	. We can say that end users are under the impression that are working with a variat of SQL.
+	. An example of Hive table. 
+		-Create table apacheLog(host string, identity string, user string, time string) ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib
+			.serde2.RegexSerDe' WITH SERDEPROPERTIES ("input.regex" = "regex_for_log","output.format.string"="%1$s,%2$s") STORED AS TEXTFILE.
+		-SELECT * FROM APACHELOG  WHERE host='123.456.123.456';
+		-Hive compiler will break down the query into multiple MapReduce flows, if needed.
+	. Easy to use and Productive than Java API.
+	. Hive architecture:
+		- Hive contains two key components. 1. CLI(Command line interpreter), Web interface 2. Driver(Compiler,Optimizer and Executor)
+		- One thing that Hive uses internally is Metastore which has info about tables, privilages etc. 
+		- Some comparisons between hive and RDBMS.
+			. Hive and RDBS both work on SQL.
+			. Hive used for analytics, RDBMS used for both OLTP and analytics.
+			. Hive only serves batch workloads, RDBMS can be used for both Real Time and batch.
+			. No transaction in hive(this is quite common in many distributed systems) as txns are very expensive to perform in such distribute systems.
+			. No insert or update in tables in Hive(but result of sql can be stored in new file). 
+			. Distributed processing(biggest advantage over RDBMS) over 100s of nodes. RDBMS have very modest limit when it comes to distribution(< 100).
+			. Hive has low cost for huge volume of data. 
+		- Metastore: Metadata is internally stored in RDBMS(default is Apache Derby, good for development), typically replaced with MySql in production. 
+		-Internal implementation is done by using DataNucleus ORM. 
+	. Interaction with Hive: 
+		-CLI interface.
+		-Web interface 
+		-Language Clients: Java jdbc (uri=jdbc:hive://host:port/dbname). Python. ODBC.
+	. Hive Data model:
+		- Hive data model is very similar to RDBMS. It is just mapping to files in HDFS.
+		- So in Hive database is just a namespace for separation of tables. Table is unit of data with same schmea. Table has columns whihc are
+			mapped to different parts of the file in HDFS.
+		- A very powerful and convenient thing in Hive is the presence of Partioning which are optional but are very useful for structuring larger dataset.
+		- A table can have one or more partition keys. A very common ones are Date and Country. 
+		- Each value of the Partionin key defines a partition of table. These partitions are actually virtual, they dont exist as columns in table. 
+			They are derived on load.
+		- Another key feature is presence of Buckets(Clusters). Data in a partition may be bucketed based on some hash function by taking input from a 
+			column in table. Eg. Bucket based on userId.
+		- Partitions and Buckets are a convenient way to siginficantly speed up the execution of our queries by filtering up large quantities of data that
+			we have no interest in.
+	. Hive Types: Similar to SQL: String,Int, Boolean, Timestamp etc.
+		-Complex types: Arrays, Maps,Structs, Unions etc.
+	. Creating table: CREATE TABLE product_view(product_id string, user_id string, visit_time int, ip_address string) PARTITIONED_BY(dt string, country string)
+		STORED AS TEXTFILE.
+	. Loading data: A common scenario is to create a external table that points to an HDFS location. CREATE EXTERNAL TABLE product_view_raw(product_id string,
+		user_id string, visit_time int, ip_address string, country string) STORED AS TEXTFILE LOCATION '/user/estore/data/product_views'
+	. Then user copies a file to the HDFS location:
+		hadoop dfs -put /tmp/cv_101.txt user/estore/data/product_views
+	. Then user transforms the data and enters them into any other Hive table. FROM product_view_raw pvr INSERT OVERWRITE TABLE product_view 
+		PARTITION (dt='2015-01-01', country='US') SELECT pvr.product_id,pvr.user_id,pvr.visit_time,pvr.ip_address where pvr.country='US'
+	. When the data format of the input file is same as Hive table we can use the LOAD statement. LOAD DATA LOCAL INPATH /user/estore/data/product_views/cv_11.txt
+		INTO TABLE product_view PARTITION (dt='2015-01-01', country='US')
+	. Hive Queries:
+		- One important thing to remember is if we need to see the results of our query we have to store them into a hive table or directory.
+			INSERT OVERWRITE TABLE table_name or directory_name
+		- INSERT OVERWRITE TABLE gizmo_product_view SELECT product_view.* FROM product_view WHERE product_view.dt > '2015-01-01' and product_view.product_id
+			= 'gizmo';
+		- We can also use joins as we do in RDBMS. For best performance it is better to put largest table at the right most position of join.
+		- UDF: user defined functions: 1.UDF One to one row mapping e.g concat(fName,lName). 2. UDAF: user defined aggregate function. Many to One. eg. Sum().
+			3. UDTF: user defined table functions.One to many row mapping. eg. Explode([1,2,3])
+	. Whe to Use Hive: 
+		- When have massive data. 
+		- Similarity with SQL
+		- But watch out for limitations: 
+			. No update 
+			. No single row insert
+			. Limited built in functions
+		- Hive is good system for batch processing. So real time response is not needed.
+		- If sql is not your requirement then consiser alternatives like Pig, Scalding.
+	. When not to use Hive:
+		- Data is in GB range. not so much. Consider alternative RDB/NoSQL store.
+		- Your data has no clear structure/schema eg. you are dealing with images or videos.
+		- You need real time response.
+
+->PIG: Developed at yahoo around 2006. 
+	-Scripting language so no compiler. 
+	-High level - creates MapReduce jobs.
+	-PIG execution models:
+		. Local Mode: Executes on a developer machine, uses local file system.Good for development. Programs can be developed in small steps. 
+		. Hadoop Mode: PIG programs are compiled into MapReduce jobs. Execute on Hadoop cluster.Grunt is the name of PIG interactive shell.
+	-Same as Hive PIG is also batch oriented.
+	-PIG data model:
+		. Primitive Types: int, long, float, double, chararray, bytearray
+		. Complex types: Fields, Tuples(Every row of data eg. (joe smith,1,CSE)), Bags (Collection of tuples, denoted by {}), Maps.
+		. Loading data: eg. sales_data = LOAD '/user/etc/sales.dat' USING PigStorage AS (userID: chararray,name:chararray)
+		. Storing data: STORE sales_data INTO 'user/etc/sales.dat'
+	-PIG Latin: 
+		. There are number of data operations for working with data eg. FILTER, FOREACH, JOIN, GROUP etc. 
+		. You can configure user defined functions.
+	-PIG example:
+		. We need to find top 3 customers. We have customer and sales information in HDFS.
+		. sales = LOAD 'user/etc/sales.dat'
+			AS (userId:chararray, name:chararray, sale_amount: float);
+		  customers = LOAD 'user/etc/customers.dat'
+			AS (id:chararray, name:chararray, age:int);
+		  customer_age = FILTER customer BY age>30;
+		  joined = JOIN customer_age BY id, sales BY userId;
+		  grouped = GROUP joined BY id;
+		  totals = FOREACH grouped GENERATE $0, SUM($1.sale_amount) AS total_sales;
+		  sorted = ORDER totals BY total_sales DESC;
+		  top3 = LIMIT sorted 3;
+		  STORE top3 INTO 'user/etc/top_customer.dat';
+	-When to use PIG: 
+		. Great for parallel processing of simple data analysis tasks.
+		. Easy programming step by step. You can debug and dump the output. 
+		. Very high prductivity in comparison with Java. 1/20th size of code but twice slower in performance.
+	-When Not to use PIG:
+		. If you need iterations and complex control structure
+		. Consider scalding if you want to benefit from the power of a full programming language and unit tesing, CI etc.
+
+-> Scalding:
+	-Scala background:
+		. Functional/object-oriented programming language
+		. Runs on JVM, can use java libraries.
+		. Application needs less code then java.
+		. Its functional background makes it suitable for massively parallel computing. 
+	-Scalding: 
+		. Domain specific language + library for scala.
+		. Converts scala programs into MapReduce.
+		. It was developed at twitter, its open source. Many user: Twitter, ebay, LinkedIn, Spotify, AirBnb, Tumblr.
+	-Positioning scalding:
+		. On background we have Hadoop -> On top of hadoop we have Cascading -> on top of cascading we have Scalding.
+		. So scalding will be compiled into cascading and cascading will eventually run on hadoop.
+		. Cascading a high level very productive java library for MapReduce. 
+	-Programming with scalding:
+		. Just plain scala program
+		. Scalding can also be run in Local mode and Deployed on Hadoop mode. 
+		. Scalding API for Big Data: 3 types of API. 
+			1) Field(easy and untyped). Old and populer.
+			2) Typed(Compiler check types). New and gaining popularity. 
+			3) Matrix
+		. External Stores:
+			-Scalding can access variety of data stores like RDB, NoSql stores(HBase,Cassandra, MongoDB etc)
+	
+-> Hadoop Ecosystem:
+	- The foundation of Hadoop is HDFS. On top of HDFS modern hadoop runs YARN. And on top of YARN we have variety of systems.
+	- The hadoop ecosystem is continuesly growing and we will many projects and technologies being part of hadoop ecosystem in future.
+	- Currently there are many projects which are moving hadoop from traditional batch to real time by in-memory and stream processing.
+	- For eg. on top of YARN we have PIG, HIVE which help us to program MapReduce tasks. Below you will find information about few more systems
+		which run on top YARN and provides good features to work with hadoop.
+	- Apache TEZ:
+		. Its an API and framework which provides better execution time(performance) for our hadoop programs.
+		. It organizes mapreduce task into directed acyclic graph of tasks.
+		. Its used by PIG and HIVE. Using TEZ is easy set 
+		. It makes HDFS to have reduced load because it reduces unnecessary writes on HDFS.
+	- HCATALOG:
+		. Its centralized metadata service.
+		. It enables interoperability between PIG and HIVE. Means we can reuse schema defined in HCATALOG for both PIG and HIVE.
+	- MAHOUT:
+		. Ita library for machine learning on top of Hadoop.
+	- SQOOP;
+		. Its used for integration of hadoop with other databases.
+		. Its a tool for automated database import/export for hadoop. It can work with RDBMS as well as some NoSQL stores.
+		. Key feature is it transfers data in parallel.
+	- FLUME:
+		. Its also a integration tool but its used when we have non relational data to integrate with hadoop. For eg. logs, webservices, message queus. etc.
+		. Horizontally scalable.
+		. It can output data in HDFS, HBase.
+	- ZOOKEEPER:
+		. When we work with hadoop we work with cluster of machine and managing cluster is a challenging task. 
+		. ZOOKEEPER is a distributed coordination service hadoop uses for this purpose.
+		. It provides loose coupling, fault tolerance(Automatic failover, majority voting for making decisions)
+		. Its fast system as all data is read from memory. Now its a standalone project used by lot of distributed systems.
+	- HBASE:
+		. Its a columnar database which runs on the top of hadoop. 
+		. Its distributed database so data is stored on many machines. It uses sorted map as datastore. 
+		. It has flexible schema so columns in the database can be added on the fly. You can have billions of numbers of columns.
+		. This type of design is called Wide Table or Long Row database. 
+		. One of its great advantage is that its horizontally scalable. We can hundreds or thousands of machines in cluster.
+		. Its fault tolerant- meanse one of machine in the cluster can die but it will not prevent us from working with application.
+		. Just like with any distributed databases we have to sacrifice transaction which is property of RDBMS dbs.
+		. We can run millions of queries per second. 
+		. It was inspired by a paper by Google on BigTable in 2006.
+		. Runnig HBASE: we can run it local or on a cluster. It provides CLI for interactive environment.
+		. HBASE provides APIs to work with it but it does not have any query language support.
+		. There are projects which put SQL and HBASE together and we can use SQL to work with HBASE. Apache Phoenix is such project.
+		. HBASE Data Model:
+			- Here we have concept of so called Column family which is close to table in RDBMS.
+			- Data structure is sparse, multi-dimensional map. 
+			- (row,column, timestamp) = cell. Its very good feature that we store timestamp. For eg. we can query that how did the data look like
+				at a perticular timestamp.
+			- Region: Contigous set of lexicographically sorted rows. Represting unit of scalability in the system.
+			- HBase does not have JOIN. Denormalization is the common workaround. So we store data at multiple locations. 
+			- Primary feature of NoSQL stores is to give performance in case of very large data and they have to sacrifice efficiency of storage for this.
+			- Bloom filters are automatically generated so its very fast for misses.
+			- A table has many rows. Each row has primary key. Row can have numbers of columns. Columns doesn't have types. Rows are sorted. 
+			- Typically we use HBase API to work with Java and as alternative we can use Apache Phoenix as well. 
+		. When to use HBASE:
+			- Need to deal with very large amount of data.(size > PB)
+			- Data model is simple. Access pattern is know in advance. Schema is not fixed.
+			- When we need random reads and writes which is not possible at all in HDFS. 
+			- When not to use HBASE: Need joins, small data, HBASE low-level API isn't sufficient.When HBASE is slower than hive.
+				. HBASE isn't only columnar database, apache cassandra is another choice.
+	- Apache Spark:
+		. Apache Spark is a new system in Apache Hadoop ecosystem. 
+		. Hadoop improvement over time: HDFS --> Apache (reduces I/O) --> Apache Spark(In memeory data processing)
+		. Datastructure is RDD(Resilient distributed datasets)- because datasets can rebuild themselves if failure occure by using thier trace.
+		. Rich set of operators inherited from Scala. So you feel like using scala in memory data structure working with spark.
+		. Faster and more productive than HDFS.
+		. Internally one of the key components of spark is data sharing which enables it to streamline the data processing 
+	- Apache Flink:
+		. This is also new system in Hadoop ecosystem and quite similar to spark.
+		. Execution: programs are compiled into execution plans. Then plans are optimized and executed ultimately. 
+		. Internal data structure is called DataSet which is quite similar to RDD in spark. 
+		. To summarize, spark and flink provides us way to use iterative algorithems by using scala as language. 
+
+- NoSQL Stores:
+	- NoSQL means Not Only SQL. Unfortunate name. Better to think it as "Non Relational" data stores.
+	- Its an umbrella name for various technologies which are typically Non-Relational and are distributed.
+	- Some of them are capable of executing MapReduce jobs. The are addressing the batch problem of plain hadoop. 
+	- No SQL Impact:
+		. When dealing with RDBMS, If volume of data grows the cost grows very fast and performance degrades. 
+		. When dealing with NoSQL stores, we get stablized cost and increased peformance with increasing volume. 
+		. When it comes to processing, we have 2 approaches, Scale UP and Scale OUT. 
+		. Scale UP is the approach in RDBMS. When you need more capability yog get bigger and bigger computers.
+		. Scale OUT is used in NoSQL. When you need more capability you get more number of computers. 
+	- Typical NoSQL systems are Non-Relational, Distributed, Horizontally scalable and doesn't need a fixed schema. 
+	- Since these systems run in distributed environment, there is CAP theorem describes the behaviour of such system.
+	- The CAP theorem(Established by Eric Brewer in 2000) says that at most 2 of 3 below can be satisfied:
+		. Consistency ( NoSQL have eventual consistency instead)
+		. Availability
+		. Partition Tolerance.(RDBMS dont have)
+	- Eventual Consistency:
+		. It means that in a distributed database a value needs to be written at multiple locations to provide fault tolerance. 
+		. Here we have 2 design choices:
+		. 1. Lock the system until all nodes confirm that the data is written -> Poor performance.
+		. 2. Allow reads to reflect values that might not be latest. 
+		. Eventually doesn't means days or weeks. It means milliseconds.
+	- NoSQL stores categories:
+		. Columnar stores, Document Oriented, Key-Value(Distributed Hashtables), Graph DB
+		. We need to choose a best match for our application. 
+		. Its also fine to have several different stores used together and its called "Polyglot Persistence"
+		. When we want to choose NoSQL store for our application we need to compare stores in terms of Scale Vs Complexity of data.
+		. Key-Value pair Stores are highly scalable but have very simple data, Columnar are next, then Document Oriented and Graph is last. 
+-> Key-Value Stores:
+	- Key->Value mapping. Very easy to use. Large persistent Hashtable. Values could be lists or hashes. Scale very well. 
+	- Used when data model is very simple and scalability is essential. 
+	- Systems: Redis, Riak, Memcached, Amazon DynamoDB, Aerospike, FoundationDB etc. 
+	- Typical UseCases:
+		. The data model is very simple, for eg. data is JSON.
+		. Storing user session data is popular use case. Instead of storing session data on webserver we can externalize it and store it into
+			key-value store. Main benefit we achieve with this is subsequent request from the user can be served by any of web servers in cluster. 
+		. Another use case is to store user preference and profiles, usually they are very simple data. 
+		. Storing shopping cart is also an example. Key can be userid and value can be serialized content of the shopping cart. 
+-> Columnar stores:
+	- Key data organization for this store is "Column Family". Its similar to Table but here table is sparse.
+	- Mapping is One key to multiple pairs of coulmn and values. Key -> (Column:value)* 
+	- For eg. Key can be customerID and column can be Timestamp and value can be customers interaction. So everytime customer interacts it will be added 
+		with new column as time of interaction. 
+	- We can store complex data but we need to make it denormalize 
+	- Systems: Google BigTable, HBase, Cassandra, Amazon SimpleDB, Hypertable. 
+	- Typical usecases:
+		. High insert volume: logging
+		. Real time updates. 
+		. Expiring content automatically. Eg. when data gets older then 2 months you can expire it automatically from system.
+		. Cross-datacenter replication.
+		. MapReduce analytics over stored data. 
+		. You dont need conventional ACID transactions.
+-> Document Stores:
+	- Typically when data is JSON, BSON(Binary JSON), XML 
+	- These stores typically dont need any schema. 
+	- You can used inexes to improve performance in such systems. 
+	- These are one of easiest systems to work with and have quite easy API. Typically they have API in javascript and you write javascript queries.
+	- Systems: MongoDB, CouchDB, CouchBase, Cloudant. 
+	- Used when your data is semi-structured and structure of data evolves during progress of application development.
+	- Such stores are often seen in WebApplications and they replace RDBMS here. 
+	- Typical usecases:
+		. Logging, especially when variable content. 
+		. Storing product information in ECommerce system. Perticulary when structure of product information varies from one product to another.
+		. Customer information. Perticularly when you want to store additional info about customer for which you dont want to define extra schema or 
+			add new customer fields.
+		. Content management. 
+		. Web analytics.
+-> Graph Stores:
+	- Typically store Nodes with properties.
+	- These nodes are connected through relationships. 
+	- Can model very complex graph data for eg. Social Network and these are optimized to run various queries over such graph model.
+	- Some system introduces thier own query language, some allow SQL. 
+	- Systems: Neo4J, Infinite Graph, Titan, OrientDB and growing...
+	- Used when data is (complex) graph. 
+	- Typical usecases:
+		. Highly interconnected data
+		. For eg. social graph, party relationship data in an enterprise like suppliers, manufacturers, distributers etc
+		. Location based services 
+		. Ecommerce system's purchasing analytics and recommendations. For eg. look into social graph and check what are my friends are buying and show 
+			recommendations to me.
+	- Often combined with other systems to store the bulk of data. Graph stores are used only to store relationships. 
+-> Data Modeling for NoSQL Stores:
+	- Remember that most NoSQL stores do not support joins.
+	- Anti Pattern: is when some DBA carries knowledge from RDBMS and models data using references. 
+	- Mostly you can avoid this by embedded data models. Data replication is often acceptable for higher speed
+	- Graph data stores can follow links in a graph without performing joins. 
+	
+-> Streaming: 
+	- Lets compare Conventional prcessing (Static Data) and Real Time processing (Streaming Data.)
+	- In Static data we have data in Database and we provide queries to the system and get results. Quries => Data => Result
+	- Systems which deal with streaming data, turn this around. First we define the set of queries and then we pass set of data over these queries and 
+		we are getting the result. Data => Queries => Results
+	- Queries operate over some window of data, which is typically very small. 
+	- Candidate appplications are ones which need to provide real-time or near real-time advice on the basis of data of current time. 
+	- Systems: Apache Storm, Apache Spark, Apache Flink, Apache S4, Esper etc. 
+-> Apache Storm
+	- Comaprison between Storm and Hadoop: By the Hadoop and storm doesn't compete with each other but complement each other. 
+		. Both of them run on cluster. 
+		. Both have master and worker nodes. 
+		. Both of them uses zookeeper for cluster management. 
+		. Hadoop is oriented towards batch processing of large files stored in HDFS. When you run a hadoop job it will run for its completion.
+			On the other hand Storm will process the data in real time as the data comes in the system. Job runs forever. 
+	- Conceptual overview of Storm:
+		. Storm system consist of Spouts and Bolts. Spouts are sources of stream. Bolts would consume the stream and emit tuples.
+		. This whole this is called Topology. Tuples are list of key-value pairs. 
+	- Trident:
+		. Besides low level API in terms of Spouts and bolts storm has higher level abstracted API called Trident. 
+		. It provides stateful, incremental processing on the top of a persistence store.Its based on storm primitives.
+		. It supports: join, merges, aggregation, grouping, functions and filters.
+-> Apache Spark streaming:
+	- Some features are Fault tolerant, Efficient, has simple programming model, Integrate and batch and interactive processing. 
+	- The idea is that you can use variety of inputs like Flume, Kafka, RabbitMQ, ZeroMQ and pass this data into the Spark Streaming and then we store	
+		the result into HDFS or Database or show on dashboards etc. 
+-> Flink streaming:
+	- Key features: True streaming, Adjustable latency/throughput, Rich Functional API.
+	- In its API we can define policy based windowing which can be based on things like time, count of elements, deltas.
+	- Various temporal operators. 
+	- One key thing which Spark and Flink enable is the integration of combining streams with batch processing.
+-> Lambda Architecutre:
+	- Lambda architecture is providing a solution of the problem to combine Real-time with batch data processing.
+	- In this architecure we split the incoming data, some part is sent to be processed by streams layer and other part is sent to batch layer. The output of 
+		these two layers is then merged and stored to some datastore. Our application fetch the result from this datastore which provides combined insight 
+		of batch processing and real time data stream.
+	- One drawback of implementing lambda architecture is that there duplication of logic in both event layer(stream layer) and batch layer. 
+		If you use systems like storm and hodoop to implement lambda architecture you have two different programming environments at two layers.
+	- In newer programming systems like spark and flink would enable us to have same or very similar code at both layers which will significantly improve
+		the productivity.
+
+-> Big Data and NoSQL in the Enterprise:
+	- Which path a RDB practitioner take: Start with Hadoop, Hive or PIG. This avoids java programming.
+	- Looking for more power: Try out Scalding and/or Spark. 
+	- If hadoop batch processing is not a good match -> check NoSQL databases.
+	- Using Hadoop as ETL is often messy in practice even though it appears simple.
+	- Big data integration with other systems is one thing that you always have to do:
+		. You can start with Sqoop. RDB <-> Hadoop.
+		. Other choice could be Flume, organized around concepts of source,sinks,pipes.Supports messaging services, social etc.
+	- Deploy big data in cloud:
+		. In conventional environment when you need increase speed you go buy hardware. If handling just a peak, infrastructure is unused.
+		. In cloud you dynamically allocate when extra is needed and then release. Buy just enough. 
+		. You can run and administer your own hadoop cluster or use a preconfigured hadoop system in the cloud.
+	- One thing you shold not forget that your processing will not end just by running hadoop. Infact you will be working in a workflow:
+		. Workflow is: Acuire->Store->Analyze->Viualize->Manage->share->Integrate 
+	- Critical thing is that business need to see business value from the big data chain. You should work with business and see what pain points you 
+		can solve with big data.
+-> Polyglot Persistence:
+	- Imaging that you are working in an ecommerce system and we need to choose a database for different parts of our application.
+	- Applicaion => session data, Logs and price updates, Product Info, Customer Agent relationship, price analytics, XA(transactional) data.
+	- It turns out that a single database for whole applicaiton is not a good choice so we need different database for different parts of our applicaiton.
+	- Session data => key/value store. key is user id, value is session info.
+	- Logs/price updates => Columnar database. price update can be value and time of price update can be column.
+	- Product Inof => Document store
+	- Customer agent relationship => Graph datastore
+	- price analytics => hadoop and convenientional MapReduce jobs
+	- XA => RDBMS.
+	- Now from a software engineering aspect you would like to reduce coupling from a perticular datastore in your application. 
+	- From eg. your service layer interacts with data access layer which encapsulates access to the database. 
+	- For eg. today our ProductDAO interacts with Cassandra datastore to persist product info but in future we want to easily replace it with MongoDB.
+	- In case of Polyglot persistence we should not allow details of perticular technology to propagate through other parts of application. 
+- One of the interesting areas of exposing database functionality is working with NoSQL, REST & Cloud. 
+	. The REST and Cloud technologies provide a greate way separating data from a perticular technologies.
+	. Usually we use REST for communication and some databases already come with service APIs, Many APIs developed by community.
+	. Also new thing is database as a service cloud offering, So you dont need to install anything as datastore is exposing its API and it 
+		available in a cloud. So you only need to send the to the system. 
+
+-> Habits of successful Big Data and NoSQL projects.
+	1. Actively look for the solutions where BigData/NoSQL can ease the pain for business.
+	2. Make sure to deliver tengible value to the clients.
+	3. You must always integrate with existing IT. 
+	4. Look for new tools and technologies.	
+	
+	
+	
+	
