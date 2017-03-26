@@ -1,0 +1,1067 @@
+=======Grand Parade======================
+Where you can put synchronized block?
+- Against methods and code blocks.
+
+Enumerate three design patterns from java jdk.
+ - Factory(Calander.getInstance), AbstractFactory(DocumentBuilderFactory.getDocumentBuilder), Builder(StringBuilder.append)
+ - Singleton(Runtime.getInstance), Adapter(InputStreamReader), Composite(java.awt.Container.add(Component)
+ - Decorator(BufferedInputStream decorates FileInputStream), Facade(javax.faces.FacesContext), Flyweight(Integer.valueOf)
+ - Proxy(java.lang.reflect.Proxy, java.rmi API), ChainOfResponsibility(Filter.doFilter), Command(Thread.start), 
+ - Interpreter(java.util.Pattern), Observer(java.lang.Obserable), Template(java.io. read() method)
+ 
+Can you change the state of the object to witch final ref var is poining?
+What is finialized method?
+What is finally block?
+What is the lambda in java 8?
+What is command for compiling class in java?
+What is the command for running java app?
+Can I instantiate abstract class?
+How many default methods can have interface in java 8?
+
+What is JVM?
+- This is the specification to run the Java program in a platform independent manner.
+What is the JRE?
+- It is the implementation of JVM specification. It is required when you need to run programs developed using java programming.
+ JRE provides the library to run these programs. Sun Microsystems, IBM etc has released the JVM implementation.
+What is the JDK?
+- It is the superset of JRE and contains everything that is in JRE plus some tool like compiler and debuggers.
+
+What are utilities for JVM monitoring?
+Useful for Java application performance troubleshooting
+ - jconsole comes together with JDK 1.5 and above. It is a Java Monitoring and Management Console - JMX-compliant graphical tool for monitoring a Java virtual machine. It can monitor both local and remote JVMs.
+ - VisualVM is a visual tool that integrates several existing JDK software tools and lightweight memory and CPU profiling capabilities
+ - HeapAnalyzer allows the finding of a possible Java™ heap leak area through its heuristic search engine and analysis of the JavaTM heap dump in Java 			applications. It analyzes Java heap dumps by parsing the Java heap dump, creating directional graphs, transforming them into directional trees, and executing the heuristic search engine.
+ 
+Can static method access non static variable or method?
+What are the params of main?
+How can I start java program?
+Please evaluate TDD acronym.
+Please evaluate SOLID acronym - each letter - SingleResponsibility,Open-Close priniciple,Liskov Substitution,Interface segregation,Depedency Injection
+What is Coupling & Cohesion?
+How to make class immutable? Provide steps- Final Class,no setter, constructor or factory method to init, return copy 
+Checked vs. unchecked exceptions provide examples.
+ - Checked: IOException,ClassNotFoundException etc.
+ - UnChecked: ArrayIndexOutOfBoundException, IllegalArgumentException,IllegalStateException
+What are new feaures in java 7/8?
+NoClassDefFoundError vs ClassNotFoundException
+ - ClassNotFoundException: It is an exception. It is of type java.lang.Exception. It occurs when an application tries to load a class at run time which is not updated in the classpath. For example, you may have come across this exception when you try to connect to databases and you have not updated the classpath with required JAR files.  It is thrown by the methods like Class.forName(), loadClass() and findSystemClass().
+ - NoClassDefFoundError: It is an error. It is of type java.lang.Error. It occurs when java runtime system doesn’t find a class definition, which is present at compile time, but missing at run time.
+- 
+What is Object class? What method does it contain? Why do we need them?
+What is Autoboxing and what are its advantages/pitfalls?
+ - Autoboxing is the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes. 
+ - Advantegse: Less code to write,The best method for conversion is automatically chosen, e.g. Integer.valueOf(int) is used instead of new Integer(int)
+ - Disadvantages: 
+	- Can lead to unexpected behaviour (‘equals’/’==), 
+	- lead to a big performance loss Integer counter = 0;counter++;
+	- Overloading issues: 
+	- NullPointerException
+ 
+How to serialize object in Java?
+Logging by string concatenation and by parameters. What is better and why?
+What is a difference between Thread and Executor?
+ 
+Difference between Process and Thread?
+ - Both processes and threads are independent sequences of execution. An executing instance of a program is called a process
+ - The typical difference is that threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
+ - Each process is started with a single thread, often called the primary thread, but can create additional threads from any of its threads.
+ - Threads can directly communicate with other threads of its process; processes must use interprocess communication to communicate with sibling processes.
+ - Threads have almost no overhead; processes have considerable overhead.
+ - New threads are easily created; new processes require duplication of the parent process
+ 
+Hash code equals contract
+List implementations in java
+Queues implementations in java
+Why do we need spring for?
+Deep copy vs shallow copy
+StringBuilder vs StringBuffer
+How volataile variable works? 
+ - The Java volatile keyword is used to mark a Java variable as "being stored in main memory". More precisely that means, that every read of a volatile variable will be read from the computer's main memory, and not from the CPU cache, and that every write to a volatile variable will be written to main memory, and not just to the CPU cache.
+ - The ThreadLocal class in Java enables you to create variables that can only be read and written by the same thread. Thus, even if two threads are executing the same code, and the code has a reference to a ThreadLocal variable, then the two threads cannot see each other's ThreadLocal variables
+Does volataile use locks? 
+ - I think no.
+Does volatile provide atomicity? 
+ - No. Volatile and Atomic are two different concepts.there is an important difference between an atomic access and an atomic operation. Volatile only ensures that the access is atomically, while Atomics ensure that the operation is atomically. 
+ 
+In Junit integration test you need a DB connection. How would write your test case?
+ - Mock the DB. However, you need to write tests to test your schema and queries.
+What is prametrized unit test?
+ - f you've ever found yourself writing a series of tests which differ only in their inputs and expected results, you've probably realized that the sensible thing to do would be to abstract your tests into a single test that can be run against a varying set of data.
+ - To mark a test class as a parameterized test, you must first annotate it with @RunWith(Parameterized.class). The class must then provide at least three entities:
+	1. A static method that generates and returns test data,
+	2. A single constructor that stores the test data, and
+	3. A test.
+	
+Wat assertions library you mostly use and why?
+ - AssertJ: The AssertJ project provides fluent assertion statements for Java.
+ - It also improves the readability of asserts statements. It has a fluent interface for assertions.
+ - assertThat(frodo.getName()).isEqualTo("Frodo");
+ - assertThat(fellowshipOfTheRing).hasSize(9).contains(frodo, sam).doesNotContain(sauron);
+Explain how transient field work?
+What is try with resources? What interface needs to be implemented?
+ - statement that declares one or more resources. A resource is an object that must be closed after the program is finished with it
+ - java.lang.AutoCloseable, which includes all objects which implement java.io.Closeable, can be used as a resource
+Can you override static method?
+Can we make a method final in Java? explain
+Why do we need interfaces?
+What would be the name of Component created from Stupid.class? How would you change the name of this component?
+Paweł Brataniec
+Difference between WHERE vs HAVING in SQL
+How to join three tables in SQL query?
+ - SELECT emp_name, dept_name FROM Employee e JOIN Register r ON e.emp_id=r.emp_id JOIN Department d ON r.dept_id=d.dept_id;
+How many characters can be stored in VARCHAR(2)?
+  - VARCHAR can store up to 2000 bytes of characters while VARCHAR2 can store up to 4000 bytes of characters.
+  - in 12c the max for varchar2 is now 32k, not 4000
+  - If we declare datatype as VARCHAR then it will occupy space for NULL values, In case of VARCHAR2 datatype it will not occupy any space.
+  - 
+How to find all duplicate records from a table?
+ - SELECT orgName, COUNT(*) AS dupes FROM organizations GROUP BY orgName HAVING (COUNT(*) > 1)
+ - To get the Id as well: select o.orgName, oc.dupeCount, o.id from organizations o inner join (
+    SELECT orgName, COUNT(*) AS dupeCount FROM organizations GROUP BY orgName HAVING COUNT(*) > 1 ) 
+	oc on o.orgName = oc.orgName
+How table index work?
+ - An index is used to speed up searching in the database.
+ - An index can be used to efficiently find all row matching some column in your query and then walk through only that subset of the table to find exact matches
+ - Since the clustered index is actually related to how the data is stored, there is only one of them possible per table 
+ - A non-clustered index is different in that you can have many of them and they then point at the data in the clustered index
+How database handles multicolumn index?
+ -  If you specify the columns in the right order in the index definition, a single composite index can speed up several kinds of queries on the same table.
+ - If the table has a multiple-column index, any leftmost prefix of the index can be used by the optimizer to look up rows. For example, if you have a three column index on (col1, col2, col3), you have indexed search capabilities on (col1), (col1, col2), and (col1, col2, col3).
+Union statement
+What is a difference between PUT and POST in REST?
+Difference between TCP and UDP protocol?
+Is websocket TCP or UDP?
+ - Websocket differs from TCP in that it enables a stream of messages instead of a stream of bytes.
+ - In fact, WebSockets is built on normal TCP sockets and uses frame headers that contains the size of each frame and indicate which frames are part of a message. The WebSocket API re-assembles the TCP chunks of data into frames which are assembled into messages before invoking the message event handler once per message
+What is NGINX?
+ - NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more.
+ - NGINX also is frequently placed between clients and a second web server, to serve as an SSL/TLS terminator or a web accelerator. Acting as an intermediary, NGINX efficiently handles tasks that might slow down your web server, such as negotiating SSL/TLS or compressing and caching content to improve performance
+ - In computer networks, a reverse proxy is a type of proxy server that retrieves resources on behalf of a client from one or more servers. These resources are then returned to the client as if they originated from the proxy server itself
+ 
+How would you split traffic between two nodes?
+What is ansible?
+ - Ansible is an open source automation platform. Ansible can help you with configuration management, application deployment, task automation. It can also do IT orchestration, where you have to run tasks in sequence and create a chain of events which must happen on several different servers or devices.
+ - An example is if you have a group of web servers behind a load balancer. Ansible can upgrade the web servers one at a time and while upgrading it can remove the current web server from the load balancer and disable it in your Nagios monitoring system.
+ - The real strength of Ansible lies in its Playbooks. A playbook is like a recipe or an instructions manual which tells Ansible what to do when it connects to each machine
+ - it doesn’t use an agent on the remote host. Instead Ansible uses SSH which is assumed to be installed on all the systems you want to manage. Also it’s written in Python which needs to be installed on the remote host. This means that you don’t have to setup a client server environment before using Ansible
+ 
+How can you find Tomcat and Java Version in Mac/Linux?
+ - Tomcat version: Go to server/bin folder. Execute the script ./version.sh or version.bat
+ - java version: Redirect stderr to stdout. Get first line. Filter the version number. java -version 2>&1 | grep -i version | cut -d'"' -f2 | cut -d'.' -f1-2
+How would you check what is the port you application is running on?
+
+20. how to implement serizlization in java in object without one filed (transient) ++
+21. 4. Which Design Patterns have You Used in Your Java Project? ++
+22. How do you prevent SQL Injection in Java Code?
+
+23.Tell me about different Reference types available in Java, e.g. WeakReference, SoftReference or PhantomReference? and Why should you use them? ++
+ - SoftReference: GB will reclaim soft referent before throwing OOMError.SoftReference<Employee> softRef=new SoftReference<>(emp); soft.get();
+	Used when you want to create a pool of objects which grows dynamically and give JVM chance to GB unused object.
+ - WeakReference: GB will reclaim whenever run. Normally used in conjuction with a WeakHashMap. WeakHashMap has WeakReferences as keys.
+ - ReferenceQueue: Reference Queues are just for References that got freed by garbage collection. They cannot be used to make alive our objects again. They can only be used to notify our code about the loss of memory objects referred to by these non- strong references.
+ - We can resurrect an object in its finalize method by adding to some static list and object will not be garbage collected.
+ - PhantomReference: Like weak reference, GB will recalaim if only phantom reference. What makes Phantom references are unique is the way in which they are		used along with a reference queue.  phantom references are enqueued in the queue only when the the object is about to be garbage collected, after the finalize method(if any) has been executed on it. Calling a get() on the Phantom reference always returns null.
+ 
+24.Which Two Methods HashMap key Object Should Implement? ++
+25.Why Should an Object Used As the Key should be Immutable? ++
+26.How do you share an object between threads? or How to pass an object from one thread to another? Producer-Consumer pattern++ 
+27.How do find if your program has a deadlock?
+ - A consistent locking order is essential to prevent deadlocks.
+ - Write a program which will result in deadlock? How will you fix deadlock in Java?
+How do you detect deadlock in Java -I would look the code if I see nested synchronized block or calling one synchronized method from other or trying to get lock on different object then there is good chance of deadlock if developer is not very careful.
+Other way is to find it when you actually get locked while running the application , try to take thread dump , in Linux you can do this by command "kill -3" , this will print status of all the thread in application log file and you can see which thread is locked on which object
+Other way is to use jconsole, it will show you exactly which threads are get locked and on which object.
+It is more important than ever not to oversynchronize. In a multicore world, the real cost of excessive synchronization is not the CPU time spent obtaining
+locks; it is the lost opportunities for parallelism and the delays imposed by the need to ensure that every core has a consistent view of memory.
+Another hidden cost of oversynchronization is that it can limit the VM’s ability to optimize code execution
+To avoid deadlock and data corruption, never call an alien method from within a synchronized region.
+28. How to run GC?
+17. does java support multiple inheritance?++
+18. What is the difference between StringBuffer and StringBuilder in Java?
+StringBuffer methods e.g. length(), capacity() or append() are synchronized 
+
+7. wait() vs notify()++
+wait() tells the calling thread to give up the monitor and go to sleep until some other thread enters the same monitor and calls notify( ).
+notify() wakes up the first thread that called wait() on the same object.
+8. meaning of yield key value 
+Thread.yield()(static) method causes the currently executing thread object to temporarily pause and allow other threads to execute.
+9. LinkedList vs ArrayList ++
+
+10. How to work Mark & Sweep in GC?
+ - JVM Heap memory is physically divided into two parts – Young Generation and Old Generation.
+ - Minor GC happens in Young generation (when its full) and Major GC happens in Old generation. Minor take less time and Major takes more time.
+ - All GC (major and minor) are Stop the world events, so your application will be unresponsive till GC is finished.
+ - If you have lot of major GC happening, your application will may have frequent timeouts.
+ - Young generation is divided into two parts (1 eden memory and 2 survivor spaces s01,s02)
+ - Objects that survive many minor GC are migrated to Old GC.
+ - Java heap memory switches: 
+	- Xms - Initial Heap size
+	- Xmx - Maximum heap size.
+	- Xmn - Setting the size of young generation. Rest of the size will go to old generation.
+	- XX:PermGen - Setting initial size of PermGen.
+	- XX:MaxPermGen - Maximum perm gen space.
+	- XX:SurvivorRatio - Default is 8. 
+	- XX:NewRatio - Ratio between new and old generation space.Default is 2.
+ - Java Garbage collection types:
+	- SerialGC(-XX:+UseSerialGC):Simple mark-sweep algo for young and old generation both.Used in simple apps with less memory foot prints.
+	- ParallelGC(-XX:+UseParallelGC): Similar to SerialGC but spawns N threads for young gen garbage collection. Default N is no of cores.
+		Can be set by JVM option -XX:ParallelGCThreads=name
+	- ParallelOldGC(-XX:UseParallelOldGC): Uses multiple threads for both young and old generation garbage collection.
+	- Concurrent Mark sweep collector(CMS): For young generation same as parallel GC. CMS collector tries to minimize the pauses due to garbage collection by doing most of the garbage collection work concurrently with the application threads.
+	- G1 Garbage Collector: Available from java7 and its long term goal is to replace CMS collector. Garbage First Collector doesn’t work like other collectors and there is no concept of Young and Old generation space. It divides the heap space into multiple equal-sized heap regions. When a garbage collection is invoked, it first collects the region with lesser live data, hence “Garbage First”.
+	- Tools for JVM monitoring: JStat, JConsole, VisualVM with VisualGC plugin.
+11. equals and hashcode contract
+EQUALS CONTRACT ++
+12. equals method rules?
+13. what is DDD
+ - BDD is used to capture usage stories, DDD is used to design the subsystem and TDD to make sure that deliverable works.
+ - BDD concentrates in understanding the user's behaviour. Benefit of BDD is more precise and organized conversation between developers 
+	and domain experts.
+ - DDD is a way to design a complex system by creating models and submodels of the domain that the system tries to implement.
+	Benefit of DDD is creation of more cohesive subsystem
+ - Use TDD together with BDD:
+	- While TDD with unit tests is a good practice but it does not provide all the testing project need.
+	- BDD is more suitable for integration and functional testing. It provides better way of requirement gathering and a better way 
+		to communicate with client through scnarios.
+	- Recommended is to use TDD for high code coverage and fast feedback and BDD as automation acceptance test.
+	- TDD is mostly oriented towards white-box testing, BDD often aims at Black-box testing.
+	
+14. what is time complexity for getting element from hashmap where hashcode returns always the same value? ++
+ - In case of good hashcode function the time complexity of get and put is O(1) and if constant hashcode then O(n).
+15. which operation in ConcurrentHashMap are synchrinized?
+ - none.
+ 
+Doubts: NoSQL, AngularJS, Scala, LoadBalancers,
+- coding: 
+1. TIC TAE TOE:
+2. Line parser: input: text of line with words separated by spaces. 1. rule- find most frequent words. 2:rule count all unique words
+Normal Talk:
+SQL: having group by,
+JMM, concurrency, GC, Java8, Spring transaction with annotation and propagation
+- Redis,cassandra
+
+==============================================================================
+========================u===================================================
+1. SQL
+2. Concurrency
+3. JMS
+4. Maven settings
+4.1 Gradle and Groovy
+5. TDD
+6. Agile and Scrum questions
+7. From JD: Securities Operations (Cash Equities and Fixed Income),  trade lifecycle
+8. From JD: Unix, DB, Scrum, Global Team, TDD and BDD
+9. From JD: wish to learn IB and Financial services domain.
+10. From JD: Imanginative and Proactive with emerging technologies.
+11. Spring, Gigaspaces, XQuery, Oracle, XML, Gemfire, Maven, Gradle, Puppet, Angular JS,Jenkins
+12. Understanding of concepts like OOD, BDD, DDD and Experience with JVM languages such as Groovy.
+13. Hands-on Experience in agile methodologies such as Scrum and Kanban
+14. What do you know about b
+15. Why you would like to work for b directly?
+	-  I am keen to work in IB and Financial services domain.
+	- b invests a lot in training and good learning enviornment
+	- creative freedom
+	- Collaborative work culture
+	- Friendly and diverse environment with lot of smart people to learn with around you
+16. Why did you apply for this role.
+	- Applied on linked job advertisement. Landed at this job reference.
+	
+17 What motivates you at work.
+ - Good latest technologies, challenging work
+ - Recognition for good work.
+ - Knowledge sharing with team 
+ - Continous improvement
+18 What do you like about your current role/ project and what you don’t like
+ - Good technology statck and tools (teamcity, automated tasks, sonar, upsource)
+ - Overall process from planning to review 
+ - Supportive and proactive team
+ - cons: sometime communication is not good from management side.
+ - cons: Cons of working in a consultancy, stability 
+19 What project you are working on
+20 Current project techs: Camel,Selenium,Cucumber,Karaf,Mockito,Maven,Felix,EIP,ExtJS,JMX
+==============================================================================
+
+================JMS, ActiveMQ=====================
+
+Advantages of using JMS: 
+Heterogeneous application integration
+As a replacement for RPC
+To loosen the coupling between applications
+To improve application scalability
+
+The overall idea behind a MOM is that it acts as a message mediator between message senders and message receivers. This mediation provides a whole new level of
+loose coupling. JMS isn’t itself a MOM. It’s an API that abstracts the interaction between messaging clients and MOMs in the same manner that JDBC abstracts communication with relational databases.
+
+JMS MESSAGE HEADERS: 
+JMSDeliveryMode : 
+Persistent - persist the message so it’s not lost if the provider fails, deliver a message once and only once.
+Nonpersistent - not to persist the message, deliver message at most once.
+JMSExpiration: The time that a message will expire. This header is used to prevent delivery of a message after it has expired.
+JMSPriority—Used to assign a level of importance to a message.
+Header set optionally by the client:
+JMSCorrelationID—Used to associate the current message with a previous message. This header is commonly used to associate a response message with a
+request message
+JMSReplyTo —Used to specify a destination where a reply should be sent. This header is commonly used for request/reply style of messaging.
+
+Message selectors - Message selectors allow a JMS client to specify which messages it wants to receive from a destination based on values in message headers.
+
+MESSAGE BODY - JMS defines six Java types for the message body, also known as the payload.
+Message—The base message type. Used to send a message with no payload
+TextMessage —A message whose payload is a String
+MapMessage —Uses a set of name/value pairs as its payload.
+BytesMessage —Used to contain an array of uninterpreted bytes as the payload
+StreamMessage—A message with a payload containing a stream of primitive Java types that’s filled and read sequentially.
+ObjectMessage—Used to hold a serializable Java object as its payload
+
+JMS domains: 
+THE POINT-TO-POINT DOMAIN - The point-to-point (PTP) messaging domain uses destinations known as queues. Through the use of queues, messages are sent and received either synchronously or asynchronously. Consumers receive messages from the queue either synchronously using the MessageConsumer.receive() method or asynchronously by registering a MessageListener implementation using the MessageConsumer.setMessage- Listener() method.
+The queue stores all messages until they’re delivered or until they expire 
+Multiple consumers can be registered on a single queue, but only one consumer will receive a given message and then it’s up to that consumer to acknowledge the message.
+
+THE PUBLISH/SUBSCRIBE DOMAIN - uses destinations known as topics. Publishers send messages to the topic and subscribers register to receive messages
+from the topic. Any messages sent to the topic are automatically delivered to all subscribers. subscribers register to receive messages from the topic either  synchronously using the Message- Consumer.receive() method or asynchronously by registering a MessageListener implementation using the MessageConsumer.setMessageListener() method.
+Topics don’t hold messages unless explicitly instructed to do so. This can be achieved via the use of a durable subscription.
+
+Two points within JMS that are often confused are message durability and message persistence.
+Durable subscription—A durable subscription is infinite. It’s registered with the topic subscription to tell the JMS provider to preserve the subscription state in the event that the subscriber disconnects. If a durable subscriber disconnects, the JMS provider will hold all messages until that subscriber connects again or until the subscriber explicitly unsubscribes from the topic.
+Nondurable subscription—A nondurable subscription is finite. It’s registered with the topic subscription to tell the JMS provider to not preserve the subscription state in the event that the subscriber disconnects. If a subscriber disconnects, the JMS provider won’t hold any messages during the disconnection period.
+Message persistence is independent of the message domain. Message persistence is a quality of service property used to indicate the JMS application’s ability to handle missing messages in the event of a JMS provider failure.
+
+Temporary destinations - are those that are created only for the duration of a connection and can only be consumed from by the connection that created them.
+restrictions make temporary destinations useful for request/reply.
+Request/reply messaging is an asynchronous back-and-forth conversational pattern utilizing either the PTP domain or the pub/sub domain through a combination of the JMSReplyTo and JMSCorrelationID message headers and temporary destinations.
+
+Administered objects - Administered objects contain provider-specific JMS configuration information and are supposed to be created by a JMS administrator; hence, the name. Administered objects are used by JMS clients. They’re used to hide provider-specific details from the clients and to abstract the JMS provider’s administration tasks. It’s common to look up administered objects via JNDI, but not required.
+CONNECTIONFACTORY - JMS clients use the ConnectionFactory object to create connections to a JMS provider. Connections typically represent an open TCP socket between a client and the JMS provider.
+DESTINATION -  The Destination object encapsulates the provider-specific address to which messages are sent and from which messages are consumed. Although destinations are created using the Session object, their lifetime matches the connection from which the session was created.
+
+=======================Concurrency============================================================
+- Executors: 
+	- Executors are capable of running asynchronous tasks and typically manage a pool of threads, so we don't have to create new threads manually
+	- ExecutorService executor = Executors.newSingleThreadExecutor()/newFixedThreadPool(1); executor.submt(() -> sout("currenttThread"));
+	- In above example java process will keep running. Executors have to be stopped explicitly otherwise they keep listening for new tasks.
+	- Executor.shutdown() waits for the current task to finish and shutdownNow() interrupts all running tasks and shutdown immediately.
+	- executor.awaitTermination(5, TimeUnit.SECONDS); can also be used to shutdown the executor.
+- Callable and Future:
+	- Callable is also functional interface but it returns the value instead of void.
+	- As Executor.submit() doesn't wait for the task to complete that is why it cant return the result direct.
+		So When submitted with callable the executor returns a special kind of result called Future. 
+		We can use Future object to fetch the result at a later point in time.
+	- ExecutorService executor = Executors.newFixedThreadPool(1); Future<Integer> future = executor.submit(task);
+		System.out.println("future done? " + future.isDone()); Integer result = future.get();
+		System.out.print("result: " + result);
+	- Calling Future.get() blocks the current thread untill Callable completes and returns the result.
+	- Futures are tightly coupled to the underlying executor service. Keep in mind that every non-terminated future will throw exceptions if you shutdown the 	executor: executor.shutdownNow();future.get();
+	- You can pass timeout in Future.get(1,TimeUnit.SECONDS).
+	- InvokeAll:
+		- Executors support batch submitting of multiple callables at once via invokeAll(Collection<Callable>)
+		- ExecutorService executor = Executors.newWorkStealingPool();
+		 executor.invokeAll(callables).stream().map(future -> {
+			return future.get();
+		}).forEach(System.out::println);
+		- Executor.newWorkStealingPool() is part java8 and return an Executor of type ForkJoinPool and it works slightly different from others.
+	- InvokeAny:
+		- Another way of batch submitting of multiple callables but it works completely different.
+		- Instead of returning Future object, invokeAny() blocks the current thread and returns the result of first callable completed.
+	- Scheduled Executores:
+		- ScheduledExecutorService is capable of scheduling tasks periodically or once after certain amount of time.
+		- ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+			ScheduledFuture<?> future = executor.schedule(task, 3, TimeUnit.SECONDS);
+		- ScheduledExecutorService provides two methods for scheduling scheduleAtFixedRate() and scheduleWithFixedDelay()
+- Synchronization and Locks:
+	- Synchronized: 
+		- When we use synchronized method or synchrinized block, java internally uses a so called Monitor also known as monitor lock or	
+			intrinsic lock in order to manage Synchronization.
+		- All implicit monitors implement the "reentrant characteristics". Reentrant means locks are bound to the current thread.
+			So a  thread can acquire the same lock multiple times without running into deadlocks (For eg. one synchronized method calls another
+			synchrinized method on same object).
+		- Example code showing problem with shared mutable object.
+			private int count=0;
+			public void incremnt(){ count = count+1; }
+			ExecutorService executorService = Executors.newFixedThreadPool(2);
+			IntStream.range(0,10000).forEach( i -> executorService.submit(() -> this.incremnt()));
+		- Race Condition: is the behaviour of program where output is dependent on the sequence or timing of the other threads or processes.
+	- Locks:
+		- Instead of using implicit locking via the synchronized keyword the Concurrency API supports various explicit locks specified by the Lock interface.  Locks support various methods for finer grained lock control thus are more expressive than implicit monitors.
+		- Multiple lock implementations are available in the standard JDK which will be demonstrated in below.
+		- ReentrantLock:
+			- ReentrantLock has same behaviour as implicit monitors but it has extended capabilities.
+			- To make your code thread safe, you acquire lock and in try block write thread prone code and in finally block you release lock.
+			- ReentrantLock lock = new ReentrantLock(); lock.lock(); try{count +=1}finally{lock.unlock()}
+			- If another thread has the lock the lock() method will block the current thread. Only one thread can hold lock at one time.
+			- boolean lockAcquired = lock.tryLock() is another alternative of lock() method. tryLock() does not block the current thread
+				so boolean result should be used to check if lock acquired or not.
+			- lock.isHeldByCurrentThread() is another fine grained capability provided.
+		- ReadWriteLock:
+			- ReadWriteLock maintain pair of locks for read and write access.
+			- Idea behind ReadWriteLock is that its usually safe to read mutable variables concurrently as long as nobody is writing the value.
+			- So read lock can be acquired by multiple thread as long as no thread hold the write lock. 
+			- It can improve performance and throughput if reads are more frequent than writes.
+			- Example code: ReadWriteLock lock = new ReentrantReadWriteLock(); lock.writeLock().lock(); lock.writeLock().unlock();
+		- StampedLock:
+			- Java8 ships a new kind of lock called StampedLock which also supports read write lock like above.
+			- StampedLock's read and write lock() methods return a stamp long value. You can use this stamp to either release the lock or to 
+				check if lock is still valid.
+			- Keep in mind that StampedLock doesn't implement Reentrant characteristics. Each call to lock() returns a new stamp and blocks
+				if no lock is available even if same thread already hold the lock.
+			- So you have to pay perticular attention not to run in deadlocks.
+			- Code example: StampedLock lock = new StampedLock(); long stamp = lock.writeLock();
+				try{ map.put("foo","bar"); } finally { lock.unlockWrite(stamp);}
+			- Additionally StampedLock supports another kind of lock mode called Optimistic Locking. 
+			- An optimistic read lock can be acquired by calling tryOptimisticRead() which always returns a stamp without blocking the current 
+				thread no matter if lock is available or not. 
+			- In case lock is not available(write lock is acive in some other thread) optimistic lock will return 0 as stamp value.
+			- In comparison to normal read() lock, optimistic lock doesn't prevent other thread to obtain write lock.
+			- So when working with optimistic lock you have to validate lock every time after accessing shared mutable variable to make sure
+				that read is still valid.
+			- Code example: StampedLock lock = new StampedLock(); 
+				long stamp = lock.tryOptimisticRead(); try{  boolean valid = lock.validate(stamp);} finally{lock.unlock(stamp)}
+		- Semaphores:
+			- Locks are used to grant access to a shared variable or resource whereas Semaphores is capable whole set of permits.
+			- This is helpful when you need to limit number of concurrent access a certain part of your application.
+			- Semaphore semaphore = new Semaphore(5);
+				Runnable longTask = () -> { boolean permit = false; try{permit = semaphore.tryAcquire(1,TimeUnit.SECONDS);
+					if(permit)sout("Semphore acquired")else{ sout("sempohre not acquired");} finally{semaphore.release();}
+	
+	Atomic Variables:
+		- The java.concurrent.atomic many useful classes to perform atomic operations.
+		- An operation is atomic when you can perform the operation safely in parallel on multiple threads without using synchronized or locks.
+		- Internally Atomic classes make havy use of Compare-And-Swap(CAS) which is an atomic instruction supported by most of the modern CPUs.
+		- CAS instructions are much faster than synchronization or locks so its advisable to use atomic classes when you need to change single
+			mutable shared resource concurrently.
+		- AtomicInteger:
+			- By using AtomicInteger as a replacement of Integer, we are able to increment the number concurrently in a thread safe manner without	
+				synchronizing the access to the variable.
+			- Some of the operations supported by AtomitInteger are incrementAndGet(),updateAndGet(UnaryOperator),accumulateAndGet(BinaryOperator)
+			- Other Atomic classes are AtomicBoolean, AtomicLong, AtomicReference.
+	ConcurrentMap:
+		- ConcurrentMap extends the Map interface and defines one of the most usefull concurrent collection types.
+		- Java8 added functional style methods in this interface.
+		- Below are some of the key functions of Concurrent Map.
+		- 1. forEach(BiConsumer<Key,Value>).putIfAbsent(key,value), getOrDefault(key,defaultValue)
+		- 2. replaceAll(BiFunction<NewValue,Key,Value>) gives every entry in the map to the function to be accepted for replacement.
+		- 3. compute("key",BiFunction<NewValue,Key,Value>) allows the perticular entry with given key to be replaced with new value.
+		- 4. merge(key, newValue,Function<oldValue,NewValue>) can be used to merge newValue for the key with oldValue.
+	ConcurrentHashMap:
+		- All above ConcurrentMap methods are available in ConcurrentHashMap as well, and it has 2 more important methods (search and reduce).
+		- ConcurrentHashMap perform operations in parallel with multiple threads.
+		- Just like "Parallel Streams" it also uses special ForkJoinPool.commonPool() available in java8.
+		- ForkJoinPool.commonPool() uses a predefined parallelism which depends on the number of cores in CPU.
+		- This value can be decreased/increased by setting a JVM property: -Djava.util.concurrent.ForkJoinPool.common.parallelism=5
+		- These additonal methods uses first argument as ParallelismThresold which is minimum collection size for parallelism.
+		- Search() method:
+			- It acccepts a BiFunction<ResultValue,Key,Value> to search.
+			- It stops processing once return non null value.
+			- Keep in mind that ConcurrentHashMap is unordered. So if multiple entries match the given search crieteria, result may vary from
+				one invocation to other.
+		- Reduce Method:
+			- Just like Stream API it accepts 2 BiFunctions. First function maps the key-value pair into a single result.
+				And second Function combines these transformed values into a single result.
+CompletableFuture:
+	- CompletableFuture is new addition in java8, its a new type Future which allows us to pass behaviour to be executed after its completed.
+	- CompletableFuture<String> future = CompletableFuture.supplyAsync(supplierOfString, optionalExecutorPool);
+		future.andThenAccept(Consumer<String>)
+	- By default CompletableFuture uses ForkJoinPool.commonPool() if you dont provide any executor.
+	- There are various utility methods in it like combining multiple futures, chaining futures etc.
+	
+BlockingQueue:
+	With introduction of BlockingQueue Data Structure in Java 5 Its now much simpler to write procducer consumer pattern because BlockingQueue provides this control implicitly by introducing blocking methods put() and take(). Now you don't require to use wait and notify to communicate between Producer and Consumer. BlockingQueue put() method will block if Queue is full in case of Bounded Queue and take() will block if Queue is empty. 
+	BlockingQuue is an interface and Java 5 provides different implantation like ArrayBlockingQueue and LinkedBlockingQueue , both implement FIFO order or elements, while ArrayLinkedQueue is bounded in nature LinkedBlockingQueue is optionally bounded. 
+
+Other Notes:
+The general strategy behind these lock-free containers is this: Modifications to the containers can happen at the same time that reads are occurring, as long as the readers can only see the results of completed modifications. A modification is performed on a separate copy of a portion of the data structure (or sometimes a copy of the whole thing), and this copy is invisible during the modification process. Only when the modification is complete is the modified structure atomically swapped with the "main" data structure, and after that readers will see the modification.
+UseCase:When you want the better performance. In case multiple readers and writers simultaneously accessing the list and updating it. 
+
+ConcurrentHashMap uses optimistic locking to minimize the impact of writes. 
+Although Atomic objects perform atomic operations like decrementAndGet( ), some Atomic classes also allow you to perform what is called "optimistic locking." This means that you do not actually use a mutex when you are performing a calculation, but after the calculation is finished and you’re ready to update the Atomic object, you use a method called compareAndSet( ). You hand it the old value and the new value, and if the old value doesn’t agree with the value it finds in the Atomic object, the operation fails—this means that some other task has modified the object in the meantime.	
+=======================Data Structure ======================================================
+- Binary Search Tree:
+	- A BST or "Ordered Binary Tree" is a type of Binary tree where nodes are arranged in order. For each node all elements in left-subtree are less or equal
+		and elements in right-subtree are greater.
+	- Basically, BST are fast in insert and lookup(avg complexity is O(log n)). Therefor, BST are good for "Dictionary" problems where code inserts or looks up
+		information indexed by some key.
+	- The shape of Binary Tree depend on the order in which nodes are inserted. If increasing order(1,2,3,4) then tree nodes just grow to the right with left
+		nodes always null and vice versa. In such case it just becomes the LinkedList and defeats the O(log n) performance.
+	
+	- Difference between Binary search tree and Red-Black tree:
+		- A regular binary search tree is not self balancing, meaning depending on the order of insertions you will get different time complexities.
+		 For eg. if inserted in order 2,3,1 then search complexity will be O(log n)  but if you insert in 1,2,3 order the complexity will be O(n)
+		 like LinkedList.
+		- A Red-Black tree will,however, reorganise itself so you always get O(log n) complexity.
+		- All "Red-Black tree" are "Binary search tree" but all "Binary search tree" are not "Red-Black tree".
+	- How to check if Binary tree is balanced or not.
+		
+================= Maven and Gradel====================================
+- Maven:
+	- Maven is a project build tool which automates everything related to building the software project. 
+	- Some of these steps are Generating source code, Generating documentation,Compiling code, Packaging compiled code in zar or zip,
+		Installing packaged code on a server or repository.
+	- Overview: - The build process in maven is split into build lifecycle, phases and goals. A build life cycle is consist of sequences of phases.
+		and each build phase consist of sequences of goals.
+	- Build plugins: Build plugins are used to insert extra goals into the build phase. If you need to perform set of actions for your project which are 
+		not covered in standard maven build phases and goals.
+	- Build profiles: If you need to build your project in different ways. You may need to build your project for dev, test or prod environment. 
+		When executing maven you can specify which profile to use.
+	- Maven Vs Ant: Ant uses more imperative approach, meaning you need to specify what to build and how to build by specifying actions.
+		Maven is build based on Convention over Configuration approach so you only specify What to build but not how to build.
+	- An inheriting POM can override settings from a super POM.
+	- Running Maven:
+		- To execute you run mvn command with name of build lifecycle, phase or goal.
+		- mvn install (install is phase of default life cycle)
+		- mvn clean install (clean is build cycle, intall is phase)
+		- mvn dependency:copy-dependencies ( dependency is build phase and copy-dependencies is goal in dependency phase)
+	- Maven has a standard directory structure. If you follow it you dont need to specify dir of source code, tests etc to maven.
+	- External Dependency: is the one which is not located in maven repository(local,central or maven), meaning external to the maven repository system.
+	  - It might be located at your local hard disk .
+	  - <dependency>
+		<groupId>mydependency</groupId>
+		<artifactId>mydependency</artifactId>
+		<scope>system</scope>
+		<version>1.0</version>
+		<systemPath>${basedir}\war\WEB-INF\lib\mydependency.jar</systemPath>
+		</dependency>
+	- Snapshot dependency: are one which are under development. Instead of constantly updating the version number to get latest version, you can depend on 
+		the snapshot version.
+		- Snapshot dependencies are always downloaded into local repository for every build, even if they are already present in local repo.
+	- Maven repositories: Local,Central and Remote. Maven searches in this order to download dependencies.
+		- Local resides on you local computer. Central repo is provided by maven community. 
+		- Remote repository can be anywhere on internet or local organization network. Often uses by organizations internally reusable projects.
+	- Maven build lifecycle: Maven has 3 built in lifecycle: default,clean, site. 
+		- you can not invoke default lifecycle directly, you need to specify name of phase from it. eg. mvn install
+		- Default lifecycle takes care of building the project, clean clears the output dir. Site is used to generate documentation of your project.
+		- The most commonly used phases of default lifecycle are: validate,compile,test,package,intall, deploy.
+		- Build goal are the finest steps in build process. A goal can be bound to zero or more build phases. If a goal is bound to more than one
+			phase it will be executed during all bounded phases. If bounded to zero you can invoke by mvn command only.
+	- Maven build profiles: allows you to build your project with different configurations without creating separate POM file.
+		- build profile are mentioned in POM itself in <profiles> element. 
+		- The elements in the profile element will override the values of elements with the same name further up in the same POM.
+		- For example you could override the application configuration file to use.
+		- You can choose active profile by putting in the settings.xml. Another way is to add -P profile-name to the command line.
+Gradle:
+	- Gradle is goodness of Ant and Maven put together minus the noise of XML.And scriptability with Groovy is big plus.
+	- It allows expressive Domain-Specific-Language implemented in Groovy instead of XML. 
+	- As gradle is DSL it allows you to write custom logic in the language you are most familiar with be it java or groovy.
+	- Few of Gradle advantages are:
+		1. Performance: Incremental-Build: If Input-output of task is upto date, not executed
+			- Incremental Compiler java: Compile only affected classes by changes.
+			- Compile Avoidance for java: 
+			- Compiler deamon process
+	- A disadvantage of Gradle can be that its less verbose.
+
+========================Groovy=======
+- Groovy is supports dynamic typing like javascript but its compiled into java byte code before running. 
+- When it comes to invoke program, groovy uses reflection so there might be a performance concern for large applications.
+- Groovy has no primitive only objects.
+- Groovy is like superset to jdk. You can use all jdk feature plus extra features of groovy.
+- Concerns about groovy is lack of tooling like code analysis, 
+- When using groovy its possible to embed groovy console into java appication so you can control your application with groovy scripts.
+	It can be helpful in development phase to make some tests(investigate dynamic mock in TAS).
+	Its like with JConsole you can control your JMX beans.
+- Often dynamic/scripting languages are break down in projects with large size. 
+- I think groovy as a dynamic language is perfect for very isolated components. 
+- Coding in groovy:
+	- The default visibility of class and methods are public.
+	- class HelloWorld {
+		def greet( name ){
+			"Hello ${name}!"
+			}
+		}
+		def hm = new HelloWorld()
+		println hm.greet("Groovy")
+	- To run groovy scripts you have 3 options. 1. groovy hello.groovy 2. groovysh the interactive console 3. groovy console
+	- Data types:
+		- 3.times {
+				println "hello"
+			}
+		- def list = [1,2,3,4,5] def map = ["key":"value"] assert list.get(0) == 1 assert list[0] == 1 assert map.get("key") == "value"
+		- (0..9).each { num -> print num }
+		- closours = reusable code blocks = lambdas - def printout = { item -> print item } (0..9).each printout or 0.upto 9, printout
+================Gigaspaces=========
+- Gigaspaces eXtreme Application Platform(XAP) is distributed in-memory data grid suited for high performance and low latency transaction processing
+	as well as real time analytics use cases.
+- XAP performance is achieved by maximizing the utilization of RAM and SSD as main data store.
+- XAP vs Simple caching(Memcache): Memcache is used for read mostly scenarios and XAP provides speed up read and write operations including transactional 
+	support.
+- XAP vs NoSQL: NoSQL uses an eventual consistency model to handle their scalability and performance. XAP address these issue of RDBMS with in-memory 
+	data store
+===============XQuery and XSLT =====
+- XQuery is a query language that queries and transforms the data from XML or collections of xml files.
+- XQuery contains a superset of XPath expression syntax
+- Some use cases of XQuery are: Extract information from database for use in web service.
+	- Generating summary report from data stored in xml databases.
+- XQuery vs XSLT: XQuery was initially considered as query language but now can transform data as well, whereas XSLT allows input xml documents to be
+	transformed into HTML or other formats.
+===============Gemfire ===============
+- GemFire provides in-memory access for all operational data spread across hundreds of nodes with a “shared nothing” architecture. Originally developed for the financial industry, it provide low-latency data access to applications at massive scale with many concurrent transactions involving terabytes of operational data, plus built-in fail-over and resilient self-healing clusters to allow developers to meet the most stringent service-level requirements for data accessibility
+==============Puppet==================
+- Puppet is an open source software configuration management tool. like Ansible.
+- Puppet is designed to manage the configuration of Unix and microsoft systems declaratively.
+- The user describes the system resources and their state, either in puppet's declarative language or Ruby DSL. 
+- This information is stored in files called puppet manifest. 
+- Puppet usually follows client-server architecture. The client is knows as agent and server as master. 
+- Example puppet manifest: user { 'harry':
+  ensure => present,
+  uid    => '1000',
+  shell  => '/bin/bash',
+  home   => '/var/tmp'
+}
+
+
+======================New Features of Java 8====================================================
+1. New Features in java language
+1.1 Lambdas and Functional Interfaces
+They allow us to treat functionality as a method argument (passing functions around), or treat a code as data: the concepts 
+Arrays.asList( "a", "b", "d" ).sort( ( e1, e2 ) -> {
+int result = e1.compareTo( e2 );
+return result;
+} );
+The function interface is an interface with just one single method
+The java.lang.Runnable and java.util.concurrent.Callable are two great examples of functional interfaces. In practice, the functional interfaces are fragile: if someone adds just one another method to the interface definition, it will not be functional anymore and compilation process will fail. To overcome this fragility and explicitly declare the intent of the interface as being functional, Java 8 adds special annotation @FunctionalInterface (all existing interfaces in Java library have been annotated with @FunctionalInterface as well)
+@FunctionalInterface
+public interface Functional {
+void method();
+}
+One thing to keep in mind: default and static methods do not break the functional interface contract and may be declared:
+@FunctionalInterface
+public interface FunctionalDefaultMethods {
+void method();
+default void defaultMethod() {           
+}       
+}
+
+1.2 Interface’s Default and Static Methods
+Java 8 extends interface declarations with two new concepts: default and static methods.
+They allow adding new methods to existing interfaces without breaking the binary compatibility with the code written for older versions of those interfaces.
+ Default methods allowed existing Java interfaces to evolve without breaking the compilation process. The good examples are the plethora of methods added to java.util.Collection interface: stream(), parallelStream(), forEach(), removeIf(), …
+ 
+1.3 Method References
+ Method references provide the useful syntax to refer directly to exiting methods or constructors of Java classes or objects (instances). With conjunction of Lambdas expressions, method references make the language constructs look compact and concise, leaving off boilerplate.
+
+1.4 Repeating annotations 
+Since Java 5 introduced the annotations support, this feature became very popular and is very widely used. However, one of the limitations of annotation usage was the fact that the same annotation cannot be declared more than once at the same location. Java 8 breaks this rule and introduced the repeating annotations. It allows the same annotation to be repeated several times in place it is declared.
+The repeating annotations should be themselves annotated with @Repeatable annotation
+@Target( ElementType.TYPE )
+    @Retention( RetentionPolicy.RUNTIME )
+    @Repeatable( Filters.class )
+    public @interface Filter {
+        String value();
+    }
+	@Filter( "filter1" )
+    @Filter( "filter2" )
+    public interface Filterable {        
+    }
+
+1.5 Better Type Inference
+Java 8 compiler has improved a lot on type inference. In many cases the explicit type parameters could be inferred by compiler keeping the code cleaner
+public class Value< T > {
+    public static< T > T defaultValue() { 
+        return null; 
+    }
+    
+    public T getOrDefault( T value, T defaultValue ) {
+        return ( value != null ) ? value : defaultValue;
+    }
+}
+
+public class TypeInference {
+    public static void main(String[] args) {
+        final Value< String > value = new Value<>();
+        value.getOrDefault( "22", Value.defaultValue() );
+    }
+}
+The type parameter of Value.defaultValue()is inferred and is not required to be provided. In Java 7, the same example will not compile and should be rewritten to Value.< String >defaultValue().
+
+1.6 Extended Annotations Support
+Java 8 extends the context where annotation might be used. Now, it is possible to annotate mostly everything: local variables, generic types, super-classes and implementing interfaces, even the method’s exceptions declaration. Couple of examples are show below.
+
+2. New Features in Java compiler
+2.1 Parameter names
+Literally for ages Java developers are inventing different ways to preserve method parameter names in Java byte-code and make them available at runtime (for example, Paranamer library). And finally, Java 8 bakes this demanding feature into the language (using Reflection API and Parameter.getName() method) and the byte-code (using new javac compiler argument –parameters)
+
+3. New Features in Java libraries
+3.1 Optional
+The famous NullPointerException is by far the most popular cause of Java application failures. Long time ago the great Google Guava project introduced the Optionals as a solution to NullPointerExceptions, discouraging codebase pollution with null checks and encouraging developers to write cleaner code. Inspired by Google Guava, the Optional is now a part of Java 8 library.
+Optional is just a container: it can hold a value of some type T or just be null. It provides a lot of useful methods so the explicit null checks have no excuse anymore.
+Optional< String > fullName = Optional.ofNullable( null );
+System.out.println( "Full Name is set? " + fullName.isPresent() );        
+System.out.println( "Full Name: " + fullName.orElseGet( () -> "[none]" ) ); 
+System.out.println( fullName.map( s -> "Hey " + s + "!" ).orElse( "Hey Stranger!" ) );
+
+3.2 Streams
+Stream API makes collections processing greatly simplified (but it is not limited to Java collections only as we will see later). Let us take start off with simple class called Task.
+public class Streams  {
+    private enum Status {
+        OPEN, CLOSED
+    };
+    
+    private static final class Task {
+        private final Status status;
+        private final Integer points;
+
+        Task( final Status status, final Integer points ) {
+            this.status = status;
+            this.points = points;
+        }
+        
+        public Integer getPoints() {
+            return points;
+        }
+        
+        public Status getStatus() {
+            return status;
+        }
+        
+        @Override
+        public String toString() {
+            return String.format( "[%s, %d]", status, points );
+        }
+    }
+}
+final Collection< Task > tasks = Arrays.asList(
+    new Task( Status.OPEN, 5 ),
+    new Task( Status.OPEN, 13 ),
+    new Task( Status.CLOSED, 8 ) 
+);
+// Calculate total points of all active tasks using sum()
+final long totalPointsOfOpenTasks = tasks
+    .stream()
+    .filter( task -> task.getStatus() == Status.OPEN )
+    .mapToInt( Task::getPoints )
+    .sum();
+        
+System.out.println( "Total points: " + totalPointsOfOpenTasks );
+
+Stream API together with Lambdas and Method References baked by Interface’s Default and Static Methods is the Java 8 response to the modern paradigms in software development.
+
+3.3 Date/Time API (JSR 310)
+Java 8 makes one more take on date and time management by delivering New Date-Time API (JSR 310). Date and time manipulation is being one of the worst pain points for Java developers. The standard java.util.Date followed by java.util.Calendar hasn’t improved the situation at all (arguably, made it even more confusing).
+That is how Joda-Time was born: the great alternative date/time API for Java. The Java 8’s New Date-Time API (JSR 310) was heavily influenced by Joda-Time and took the best of it. The new java.time package contains all the classes for date, time, date/time, time zones, instants, duration, and clocks manipulation. In the design of the API the immutability has been taken into account very seriously: no change allowed (the tough lesson learnt from java.util.Calendar). If the modification is required, the new instance of respective class will be returned.
+Let us take a look on key classes and examples of their usages. The first class is Clock which provides access to the current instant, date and time using a time-zone. Clock can be used instead of System.currentTimeMillis() and TimeZone.getDefault().
+
+3.4 Nashorn JavaScript engine
+Java 8 comes with new Nashorn JavaScript engine which allows developing and running certain kinds of JavaScript applications on JVM. Nashorn JavaScript engine is just another implementation of javax.script.ScriptEngine and follows the same set of rules, permitting Java and JavaScript interoperability. Here is a small example.
+ScriptEngineManager manager = new ScriptEngineManager();
+ScriptEngine engine = manager.getEngineByName( "JavaScript" );
+        
+System.out.println( engine.getClass().getName() );
+System.out.println( "Result:" + engine.eval( "function f() { return 1; }; f() + 1;" ) );
+
+3.5 Base64
+Finally, the support of Base64 encoding has made its way into Java standard library with Java 8 release. It is very easy to use as following example shows off
+package com.javacodegeeks.java8.base64;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+public class Base64s {
+    public static void main(String[] args) {
+        final String text = "Base64 finally in Java 8!";
+        
+        final String encoded = Base64
+            .getEncoder()
+            .encodeToString( text.getBytes( StandardCharsets.UTF_8 ) );
+        System.out.println( encoded );
+        
+        final String decoded = new String( 
+            Base64.getDecoder().decode( encoded ),
+            StandardCharsets.UTF_8 );
+        System.out.println( decoded );
+    }
+}
+
+3.6 Parallel Arrays
+Java 8 release adds a lot of new methods to allow parallel arrays processing. Arguably, the most important one is parallelSort() which may significantly speedup the sorting on multicore machines.
+
+4. New Java tools
+4.1 Nashorn engine: jjs
+jjs is a command line based standalone Nashorn engine. It accepts a list of JavaScript source code files as arguments and runs them
+function f() { 
+     return 1; 
+}; 
+
+print( f() + 1 );
+jjs func.js
+
+4.2 Class dependency analyzer: jdeps
+jdeps is a really great command line tool. It shows the package-level or class-level dependencies of Java class files. It accepts .class file, a directory, or JAR file as an input. By default, jdeps outputs the dependencies to the system output (console).
+As an example, let us take a look on dependencies report for the popular Spring Framework library. To make example short, let us analyze only one JAR file: org.springframework.core-3.0.5.RELEASE.jar.
+jdeps org.springframework.core-3.0.5.RELEASE.jar
+
+5. New Features in Java runtime (JVM)
+5.1 The PermGen space is gone and has been replaced with Metaspace (JEP 122). The JVM options -XX:PermSize and –XX:MaxPermSize have been replaced by -XX:MetaSpaceSize and -XX:MaxMetaspaceSize respectively.
+
+============================Unix Commands ===================================================
+- ls : to list files in current direcotry
+	- ls -alF : to list in long format
+- mkdir : create a directory. eg. mkdir test
+- rmdir: remove a direcotry (must be empty). eg. rmdir emptyDir
+- cp : copy file into directory or another file. eg. cp file1 web-docs, cp file file1.bak
+- rm : remove or delete file. eg. rm file1.bak, rem *.tmp
+- mv : Move or rename file. eg. mv old.html new.html 
+- more : Look at file one page at a time. eg. more index.html
+- lpr : send file to printter. eg. lpr index.html
+- man : manual(help) about command. eg. man ls
+
+- grep : Find which file contain a word. eg. grep "bad word" *
+- chmod : change file permissions. eg. chmod 644 *.html, chmod 755 *.html
+- passwd : change password.
+- ps : list all running processes. eg. ps aux, ps aux | grep dhyatt
+- kill : kill a process. eg. kill -9 7443
+- gcc : compile a program written in c. eg. gcc file1.c -o file1
+- g++ : compile a program written in c++. eg. g++ file.cpp -o file
+- gzip : compress a file. eg. gzip bigfile
+- gunzip : uncompress a file. eg. gunzip bigfile.gz
+- mail : send email. eg. mail me@company.com < file1
+- pine : to read email.
+- telnet : open a connection to host. eg. telnet google.com
+- ssh : open a secure connection to remote host. eg. ssh -1 username hostname
+- ftp<host> : upload or download file from remote host. eg. ftp station1.mycomp.com
+- ncftp<host/directory> : connect to archieves. eg. ncftp metlab.mnc.edu
+
+- who : lists who is logged on your machine.
+- finger : lists who is on computers in the lab.
+- ytals<user@host> : talk online with user on host.
+- history : lists commands you have done recently
+- fortune : prints random humouros message.
+- date : prints current date.
+- cal<month year> : prints calender of month and year. eg. cal 9 2000
+- xeyes: keeps track of the cursor in the background.
+- xcalc : calculator("background process").
+- mpage <opt><file> : prints pages on a single sheet(font will be small). eg. mpage -8 file | lpr 
+
+- df : shows how much free disk space.
+- du : estimates disk usage of directory. eg. du -b subdir
+- alias : creates a new command. eg. alias lls="ls -alF"
+- tar : create an archive. eg. tar -cf subdir.tar subdir 
+- tar : extract file from an archive. eg. tar -xvf subdir.tar 
+- top : print system usage and top resource hogs.
+- logout(exit): to quit a UNIX shell.
+
+- Create a read-only file 
+	- touch file; chmod 400 file
+- Run a process in background, bring in the foreground
+	- &, fg jobId
+- Know if a remote host is alive or not
+ - ping or telnet
+- Ignore some words while searching using grep
+	- grep exception logfile.txt | grep -v ERROR
+- Count occurences of a word in a file using grep 
+	- grep -c "Error" logfile.txt
+- Print lines before and after the matching word using grep
+	- grep --context=6 "succeful" logfile.txt
+	- grep -C 6 "hello" *
+- search patterns using egrep
+	- egrep "Error|Exception" logfile.txt
+- Case insensitive search
+	- grep -i "hello" logfile.txt
+- Search in gzip 
+	- zgrep -i Error zipped.gz (display all files with search)
+- Search the whole word in file
+	- grep -w ERROR logfile.txt
+	- grep -w 'ERROR>' logfile.txt (words that start with ERROR)
+- List only file names which contains the word
+	- grep -l "main" *.java 
+- show the line numbers of matching
+	- grep -n "ERROR" *.java
+- Recursive search in directory 
+	- grep -R store *
+- Show matching pattern in color
+	- grep Exception today.log --color
+- There are 3 versions of grep. grep-fixex grep, egrep-extended grep 
+
+- Copy file from one host to another.
+	- scp or sftp or rsync
+- Find which process is taking how much CPU.
+	- top command. 
+- Sort the output of any command.
+	- sort command is used to sort either in alphabatical order or numeric (-n parameter) order.
+	- eg. ps -ef | sort -nk2 (n=numeric,k=column,2=columnNumber)
+	- eg. revers. ps -ef | sort -rnk2 
+	- eg. sorting alphabatical. cat names.txt | sort 
+	- eg. sorting and unique. cat names.txt | sort -u or cat names.txt | sort | uniq
+
+- What is diiff bw ps -ef and ps -auxwww
+	- ps -ef will not show process with very long command but ps -auxwww will show those process as well.
+- How to find how many CPUs are in your system and other details.
+	- By looking at the file /proc/cpuinfo 
+- What is diff bw Hardlink(symbolic) and softlink(symlink)
+	- Symlink(soft link) are pointers to prorgams,file or directories located elsewhere(like windows shortcuts)
+		Hardlinks(symbolic link) are pointers to program or file but not directories.
+	- When original program,file or directory is renamed, removed or deleted softlinks are broken but hardlinks are not broken.
+- what is chmod command? what do you understand by "r-- -w- --x"
+	- chmod is used to change the permissions on a file or direcotry. The line shows three different set of permissions.
+	- Its shown in this format user_group_others.
+	
+- How to find a file in your system using find command with modified time parameters.
+	- find .(current dir) -mtime 1(modified exact 1 day)
+	- find . -mtime -1 (modified less than 1 day)
+	- find . -mtime +1 (modified greater than 1 day)
+- How to find files and directories with permisson 777
+	- find . -perm 777 (read write execute for all user,group,others)
+- Case insensitive search using find command
+	- find . -iname "error" -print
+- Unix find and xargs command examples.
+	- xargs can be used to do whatever with the file found with find command.
+- How to delete temporary file using find command
+	- find . "*.tmp" | xargs rm -f
+- How to find all files containing containing Exception word using find command
+	- find -name "*.java" | xargs grep "Exception"
+- How to find file only in current directory not in subdirectory. 
+	- find . -maxdepth 1 -type f(specify type file,directory or link)
+- How to find files based on size in unix
+	- find . -size +10000c -size -50000 (greater than 10k bytes and less 50000 bytes)
+- Use "awk" command to print a formatted output
+	- e.g. find -type l -print0 | xargs ls -ld | awk ;{print $10}'
+	- type -l specify the symbolic link for current directory
+- If your file, directory or path contains any type of white spaces use -print0 or xargs -0 to process white spaces as file,dir or path names.
+
+- How to count the number of words in file.
+	- grep -c "UNIX" filename
+- How to set the environment variable which will be accessible from a sub shell?
+	- using export command. e.g export counter=1
+- How to run last executed command.
+	- using ! with the command. eg. !find
+- How to find if your system is 32 or 64 bit.
+	- either uname -a or arch command.
+	
+- Networking commands examples
+- hostname
+	- hostname displays machines hostname.
+	- hostname -d displays domain name the machine belongs
+	- hostname -f fully qualified hostname and machine name
+	- hostname -i displays current ip address of machine
+- ping to ensure the connection works and speed of connection
+- ifconfig to see network configuration 
+- netstat most veratile and useful command to find connection to and from the host.
+	- netstat -nap | grep portNumber will display the process id which is using that port
+	- netstat -a will display all connections including tcp and udp
+	- netstat -t will display only tcp connections
+	- netstat -u will display only udp connections.
+	- netstat -g will display all multicast networks subscribed by the host.
+- nslookup 
+	- if you know the ipaddress it will display the hostname. 
+	- to find all ip addresses for a given domain name, the command nslookup is used.
+	- eg. nslookup blogger.com
+- How to check if a perticular process is listening to a perticular port on remote host.
+	- using telnet command. eg. telent hostname portname
+- How to find which processes are using a perticular file.
+	- lsof command
+- How to check which remote host are connecting to your host on a perticular port say 10123
+	- netstat -a | grep "port" will list the entire host connected to this host on port 10123
+- What is nohup command
+	- nohup is special command to run the process in the background. 
+	- background process will not stop even if the user who started it logoff from the host.
+- What is ephemeral port in UNIX.
+	- ephemeral ports are the port which are use by the operating system for client sockets.
+- If one process is inserting data into your MySql database. How do you check how many rows inserted into every second?
+	- using watch command.
+- There is a file in unix_test.txt which contains word unix,how to replace all unix with UNIX?
+	- sed s/unix/UNIX/g filename
+- You have a tab separated file which contains name,address and phone number? how to display only phone numbers?
+	- cut -f3 filename
+- How do you know for how many days your server is up?
+	- uptime 
+
+==============================DBMS===================================
+- ACID properties
+	- Atomicity- This property states that a transaction must be treated as an atomic unit, that is, either all of its operations are executed or none. 
+	- Consistency − The database must remain in a consistent state after any transaction
+	- Isolation − In a database system where more than one transaction are being executed simultaneously and in parallel, the property of isolation states that all the transactions will be carried out and executed as if it is the only transaction in the system
+	- Durability − The database should be durable enough to hold all its latest updates even if the system fails or restarts.
+
+- Normalization
+	Managing a database with anomalies is next to impossible.
+	Update anomalies − If data items are scattered and are not linked to each other properly, For example, when we try to update one data item having its copies scattered over several places, a few instances get updated properly while a few others are left with old values.
+	Deletion anomalies − We tried to delete a record, but parts of it was left undeleted because of unawareness
+	Insert anomalies − We tried to insert data in a record that does not exist at all.
+	Normalization is a method to remove all these anomalies and bring the database to a consistent state.
+	First Normal Form-This rule defines that all the attributes in a relation must have atomic domains.
+	Second Normal Form-If we follow second normal form, then every non-prime attribute should be fully functionally dependent on prime key attribute.
+	Third Normal Form-For a relation to be in Third Normal Form, it must be in Second Normal form and the following must satisfy some extra rules
+	Boyce-Codd Normal Form-Boyce-Codd Normal Form (BCNF) is an extension of Third Normal Form on strict terms
+
+- Types of statements in JDBC
+	- Statement, PreparedStatement, CallableStatement(to call stored procedures)
+- Types of joins in sql
+	- inner join - selects data which matches condition on all tables.
+	- Outer join - select matching data plus non matching data from either left, right or both tables.
+		- right join - match plus not match from right table
+		- left join - match plus not match from left table
+		- full join -match plus not match from both tables.
+
+- Find the Nth highest salary:
+		SELECT * /*This is the outer query part */
+		FROM Employee Emp1
+		WHERE (N-1) = ( /* Subquery starts here */
+		SELECT COUNT(DISTINCT(Emp2.Salary))
+		FROM Employee Emp2
+		WHERE Emp2.Salary > Emp1.Salary)
+
+- What are the transaction propagation levels in spring?
+	- In spring transaction developer has the ability to specify how the business method should be encapsulated in both logical and physical transaction.
+	- This propagation affects how the inner transaction outcome affects outer transactions.
+	- Propagation.REQUIRED: If a transaction exists same will be used in the current bean method execution context. 
+		- If no active transaction exists it creates new one. 
+		- If multiple methods configured as REQUIRED behaviour are called in nested way then they will be assigned "distinct logical transaction" but
+			they will share the same physical transaction. 
+		- If inner methods causes a transaction rollback then outer method will fail to commit. 
+	- By default the only exception which causes rollback is unchecked exception like RuntimeException.
+	- Propagation.REQUIRES_NEW: A new physical transaction will always be created by the container.
+	- Propagation.NESTED: Allows to use same physical transaction but set save points between nested invocations so inner transaction may rollback 
+		independently without affecting outer transaction. 
+		- must be used with sprint jdbc managed transaction.
+	- Propagation.MANDATORY: An already opened transaction must exist and used. If not exist then throw exception.
+	- Propagation.NEVER: Already opened transaction should never exist. If exist it throws exception.
+	- Propagation.NOT_SUPPORTED: Will execute outside the scope of any transaction. If txn exist it will be paused.
+	- Propagation.SUPPORTS: If open txn exist it will be in scope of transaction. If not exist it will be executed in non-transactional way.
+	
+- What are transaction Isolation levels 
+	- Transaction Isolation defines how changes made to some data by one transaction affects other simultaneous concurrent transaction and 
+		when the changed data will become available to other transaction. 
+	- Isolation.READ_UNCOMMITTED: a transaction may read data that is still uncommitted by other transaction. 
+		- This isolation is vary relaxed in what matters to transactional concurrency but it may lead to some issues.
+		- Read_Uncommitted is vulnerable to dirty reads, non-repeatable-reads and phantom reads.
+		- Dirty Read: TXN_A: write(where x=1) 
+											TXN_B: read(where x=1) 
+																TXN_A: rollback()
+																				TXN_B: has dirty record
+	- Isolation.READ_COMMITTED: A transaction can not read data that is not yet committed by other transactions.
+		- So dirty read is no longer an issue. 
+		- Read_Committed is vulnerable to non-repeatable-reads and phantom reads.
+		- Non-Repeatable-Reads: TXN_A: read(where x=1)
+													TXN_B: write(where x=1);commit()
+																		TXN_A: read(where x=1)
+																		TXN_A: got different values between consecutive reads.
+	- Isolation.REPEATABLE_READ: If a transaction reads one record from database multiple times the result of all those reading operations must always be
+		same.
+		- This eliminates the dirty-reads and non-repeatable-reads issues.
+		- REPEATABLE_READ is vulnerable to phantom reads.
+		- Phantom-reads: TXN_A: read(where x>=10 && x<=20)
+													TXN_B: write(where x=15);commit();
+																				TXN_A: read(where x>=10 && x<=20)
+																				TXN_A: range of records contain phantom records)
+	- Isolation.SERIALIZABLE: This is most restrictive isolation level with locks at every level(read,range and write)
+		- This is secure from dirty-reads,non-repeatable-reads and phantom-reads but introduce performance panelty
+	- Isolation.DEFAULT: The default isolation level supported by datastore we are connecting to.
+	
+	- A lower isolation level increases the ability of many users to access data at the same time, but increases the number of concurrency effects, such as dirty reads or lost updates, that users might encounter. Conversely, a higher isolation level reduces the types of concurrency effects that users might encounter, but requires more system resources and increases the chances that one transaction will block another.
+	The highest isolation level, serializable, guarantees that a transaction will retrieve exactly the same data every time it repeats a read operation, but it does this by performing a level of locking that is likely to impact other users in multi-user systems. The lowest isolation level, read uncommitted, can retrieve data that has been modified but not committed by other transactions. 
+
+- Isolation level with Spring and JPA
+	- Supply isolation level in spring managed beans: @Transactional(Isolation.READ_UNCOMMITTED,Propagation.REQUIRED)
+	- If we are using Spring with JPA and supply isolation level different from the default one we may come accross following exception
+		- InvalidIsolationLevelException:Standar JPA does not support custom isolation levels.
+	- To overcome this exception we have to define custom JPA dialect that extends an already existing JPA dialect. 
+	- The idea is override the methods that are needed to begin the transaction and change the isolation level. 	
+		All other functionality will still be provided by spring jpa dialect.
+	- If are using Spring transaction management with Hibernate we need to extend HibernateJpaDialect class 
+		and override beginTransaction() and cleanUpTransaction() methods.
+	
+	
+========================Mislaneous concepts===================================================
+- Why REST is lightweight compared to SOAP?
+ As REST allows support to JSON which takes less memory and bandwidth therefore REST is lightweight.
+ SOAP uses XML format that must be parsed to be read. Also, It defines many standards that must be followed while developing the SOAP applications. So it is slow and consumes more bandwidth and resource.
+ Big part of the light weight of REST comes from the main difference that REST is only an architecture standard while SOAP is a protocol. REST can use SOAP as protocol but more typical it will directly use HTTP, while SOAP itself also uses HTTP internally. 
+ JSON is not as verbose as XML. SOAP also comes with its own security while REST inherits the underlying security.
+ 
